@@ -1,0 +1,20 @@
+{
+  "name": "@vmp/vite-plugin-wx-mp",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "main": "index.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "src",
+    "types",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -1,0 +1,8 @@
+dist/
+node_modules/
+output/
+
+.DS_Store
+.eslintcache
+.pnpm-debug.log
+.idea

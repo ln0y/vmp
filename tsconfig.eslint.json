@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "scripts",
+    "shared",
+    "util",
+    ".eslintrc.cjs",
+    "*.ts"
+  ],
+  "exclude": ["shared/tsconfig.json"]
+}
