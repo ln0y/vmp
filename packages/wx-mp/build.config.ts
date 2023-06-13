@@ -1,1 +1,1 @@
-/home/hf/workspace/vmp/shared/build.config.ts
+../../shared/build.config.ts

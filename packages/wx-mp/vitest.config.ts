@@ -1,1 +1,1 @@
-/home/hf/workspace/vmp/shared/vitest.config.ts
+../../shared/vitest.config.ts

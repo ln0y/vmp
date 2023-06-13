@@ -3,12 +3,11 @@
 packages="$(pwd)/packages/*/"
 files=("tsconfig.json" "vitest.config.ts" "build.config.ts")
 
-# vitest.config.ts
 for file in "${files[@]}"; do
   for package in $packages; do
     if [ "$package" ]; then
       if [ ! -e "${package}${file}" ]; then
-        ln -s "$(pwd)/shared/${file}" "$package"
+        ln -s "../../shared/${file}" "$package"
       fi
     fi
   done
