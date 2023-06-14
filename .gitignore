@@ -6,3 +6,6 @@ output/
 .eslintcache
 .pnpm-debug.log
 .idea
+
+debug.json
+debug.schema.json

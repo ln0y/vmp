@@ -12,8 +12,8 @@
       "runtimeArgs": [
         "typescript-json-schema",
         "types/wx/${fileBasename}",
-        "*",
-        "-o=types/wx/debug.json"
+        "ProjectConfig",
+        "-o=types/wx/debug.schema.json"
       ],
       "cwd": "${workspaceFolder}/packages/schema",
       "skipFiles": [
