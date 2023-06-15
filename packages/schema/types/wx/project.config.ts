@@ -497,16 +497,50 @@ export interface babelSetting {
   disablePlugins: string[]
 }
 
+/**                方案一                      */
+/**
+ * todo 生成 libVersion Schema 后 需要把 anyOf 中 type:object 改为 type:string
+ *
+ * https://github.com/microsoft/TypeScript/issues/29729
+ */
+
+// interface Nothing {}
+// export type libVersion = 'latest' | 'trial' | 'widelyUsed' | (string & Nothing)
+
+/**                方案一                      */
+
+/**                方案二                      */
+/**
+ * as any 是为了不让枚举值类型扩宽为 string 导致生成的 schema 缺少枚举提示
+ * 但是会导致 ts 类型枚举值被吞
+ */
+
+/**
+ * libVersion 枚举值
+ */
 export enum libVersionEnum {
   /**
-   * tete
+   * 最新的非灰度中的基础库
    */
   latest = 'latest' as any,
+
+  /**
+   * 最新的基础库
+   */
   trial = 'trial' as any,
+
+  /**
+   * 使用比例最高的基础库
+   */
   widelyUsed = 'widelyUsed' as any,
 }
+
 export type libVersion = libVersionEnum | string
-const tt: libVersion = ''
+
+// const test: T = "latest"
+
+/**                方案二                      */
+
 /**
  * packOptions 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。
  */
@@ -651,10 +685,6 @@ export interface editorSetting {
    * @default 4
    */
   tabSize?: number
-}
-
-const t: editorSetting = {
-  tabIndent: 'auto',
 }
 
 export interface condition {
