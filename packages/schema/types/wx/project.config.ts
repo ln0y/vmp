@@ -82,6 +82,11 @@ export interface ProjectConfig {
   projectname: string
 
   /**
+   * 项目描述
+   */
+  description: string
+
+  /**
    * 打包配置选项
    *
    * `packOptions` 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。
@@ -123,6 +128,17 @@ export interface ProjectConfig {
    */
   staticServerOptions: staticServerOptions
 
+  /**
+   * 指定自动生成的文件的 tabIndent 和 tabSize
+   *
+   */
+  editorSetting: editorSetting
+
+  /**
+   * 编译模式
+   *
+   */
+  condition: condition
 }
 
 /**
@@ -149,6 +165,10 @@ export interface setting {
    * 是否启用 es6 转 es5
    *
    * 允许私有设置 否
+   *
+   * 注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`
+   *
+   * @default false
    */
   es6: boolean
 
@@ -156,6 +176,8 @@ export interface setting {
    * 是否打开增强编译
    *
    * 允许私有设置 否
+   *
+   * 注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`
    */
   enhance: boolean
 
@@ -163,6 +185,8 @@ export interface setting {
    * 上传代码时样式是否自动补全
    *
    * 允许私有设置 否
+   *
+   * @default false
    */
   postcss: boolean
 
@@ -170,6 +194,8 @@ export interface setting {
    * 上传代码时是否自动压缩脚本文件
    *
    * 允许私有设置 否
+   *
+   * @default false
    */
   minified: boolean
 
@@ -191,6 +217,8 @@ export interface setting {
    * 上传时进行代码保护
    *
    * 允许私有设置 否
+   *
+   * @default false
    */
   uglifyFileName: boolean
 
@@ -205,6 +233,8 @@ export interface setting {
    * 是否自动运行体验评分
    *
    * 允许私有设置 是
+   *
+   * @default false
    */
   autoAudits: boolean
 
@@ -212,6 +242,8 @@ export interface setting {
    * 是否检查安全域名和 TLS 版本
    *
    * 允许私有设置 是
+   *
+   * @default false
    */
   urlCheck: boolean
 
@@ -233,6 +265,11 @@ export interface setting {
    * 是否启用懒注入占位组件调试
    *
    * 允许私有设置 是
+   *
+   * 注: (懒注入占位组件调试) 开启[按需注入](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html)
+   * 后在项目设置面板中会出现对应的勾选项，
+   * 开启之后，按需注入的组件将会停止注入，页面停止在占位组件状态，
+   * 便于调试自定义占位组件。
    */
   lazyloadPlaceholderEnable: boolean
 
@@ -240,6 +277,9 @@ export interface setting {
    * 仅在小游戏项目有效，是否开启静态资源服务器
    *
    * 允许私有设置 是
+   *
+   * 注: (静态资源服务器) 可以托管项目本地的静态资源，
+   * 主要用于在预览时测试小游戏真机资源加载的效果。
    */
   useStaticServer: boolean
 
@@ -286,6 +326,11 @@ export interface setting {
    * 在小游戏插件项目中，是否启用 “以本地目录为插件资源来源” 特性
    *
    * 允许私有设置 否
+   *
+   * 注: (以本地目录为插件资源来源) 启用此特性后，
+   * 工具将停止从线上获取小游戏插件包内容，并将检验本地相应目录的文件完整性。
+   * 仅对小游戏插件项目有效。要以本地磁盘目录作为插件的资源来源，
+   * 需要同时在小游戏插件项目的 game.json 中配置相关的属性。
    *
    * @default true
    */
@@ -341,6 +386,11 @@ export interface setting {
    * 是否开启小程序独立域调试特性
    *
    * 允许私有设置 是
+   *
+   * 注: (小程序独立域调试) 一种新的小程序内部代码的执行方式，
+   * 仅影响工具侧的调试过程。未来将取代传统的执行方式并成为默认选择。
+   * 仅在 2.11.1 及以上基础库有效。
+   * 关闭此特性可能有助于规避一些调试中遇到的未知报错。
    */
   useIsolateContext: boolean
 
@@ -348,6 +398,10 @@ export interface setting {
    * 是否开启模拟器预先载入小程序的某些资源。此设定为 false 时会导致 `useIsolateContext` 失效
    *
    * 允许私有设置 是
+   *
+   * 注: (预先载入小程序的某些资源) 开启此内部特性后，
+   * 调试时小程序的重新载入可能会更快一些。
+   * 此设定不影响真机和实际运行效果。
    */
   useMultiFrameRuntime: boolean
 
@@ -355,6 +409,9 @@ export interface setting {
    * 是否启用 `API Hook` 功能
    *
    * 允许私有设置 是
+   *
+   * 注: (API Hook 功能) 关闭此内部特性可能导致工具的某些调试功能（例如 mock）失效。
+   * 此设定不影响真机运行效果。
    */
   useApiHook: boolean
 
@@ -362,6 +419,10 @@ export interface setting {
    * 是否在额外的进程处理一些小程序 API
    *
    * 允许私有设置 是
+   *
+   * 注: (额外进程) 开启此内部特性后，
+   * 部分 API 的调用会被移到单独的进程以减轻工具主进程的负担。
+   * 此设定不影响真机运行效果。
    */
   useApiHostProcess: boolean
 
@@ -386,6 +447,27 @@ export interface setting {
    */
   showES6CompileOption: boolean
 
+  /**
+   * 是否打开SiteMap索引提示
+   *
+   * @default true
+   */
+  checkSiteMap: boolean
+
+  /**
+   *
+   *
+   * @default true
+   */
+  newFeature: boolean
+
+  /**
+   * 是否使用npm包
+   *
+   * @default false
+   */
+  nodeModules: boolean
+
 }
 
 export interface packNpmRelationList {
@@ -408,13 +490,23 @@ export interface babelSetting {
    * 配置需要跳过Babel编译(包括代码压缩)处理的文件或目录
    */
   ignore: string[]
+
+  /**
+   * 关闭的插件
+   */
+  disablePlugins: string[]
 }
 
-// todo 生成 libVersion Schema 后 需要把 anyOf 中 type:object 改为 type:string
-// https://github.com/microsoft/TypeScript/issues/29729
-interface Nothing {}
-export type libVersion = 'latest' | 'trial' | 'widelyUsed' | (string & Nothing)
-
+export enum libVersionEnum {
+  /**
+   * tete
+   */
+  latest = 'latest' as any,
+  trial = 'trial' as any,
+  widelyUsed = 'widelyUsed' as any,
+}
+export type libVersion = libVersionEnum | string
+const tt: libVersion = ''
 /**
  * packOptions 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。
  */
@@ -534,3 +626,44 @@ export interface staticServerOptions {
    */
   servePath: string
 }
+
+/**
+ * 编辑器设置 （会覆盖工具里的设置）
+ *
+ * 指定自动生成的文件的 tabIndent 和 tabSize
+ */
+export interface editorSetting {
+  /**
+   * tab 缩进
+   *
+   * `"auto"` 自动检测缩进
+   *
+   * `"insertSpaces"` 用空格代替 Tab
+   *
+   * `"tab"` 使用 Tab
+   *
+   */
+  tabIndent: 'auto' | 'insertSpaces' | 'tab'
+
+  /**
+   * tab 大小
+   *
+   * @default 4
+   */
+  tabSize?: number
+}
+
+const t: editorSetting = {
+  tabIndent: 'auto',
+}
+
+export interface condition {
+  search: string
+  conversation: string
+  plugin: string
+  game: string
+  miniprogram: string
+}
+
+// todo 添加 "markdownDescription"
+// https://github.com/microsoft/vscode/issues/34498
