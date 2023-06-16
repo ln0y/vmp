@@ -4,42 +4,45 @@
  * 可以在项目根目录使用 `project.config.json` 文件对项目进行配置。
  *
  * <https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html>
+ *
+ * 微信官方 schema
+ * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/project.config.schema.json>
  */
 export interface ProjectConfig {
   /**
    * 指定小程序源码的目录(需为相对路径)
    */
-  miniprogramRoot: string
+  miniprogramRoot?: string
 
   /**
    * 指定腾讯云项目的目录(需为相对路径)
    */
-  qcloudRoot: string
+  qcloudRoot?: string
 
   /**
    * 指定插件项目的目录(需为相对路径)
    */
-  pluginRoot: string
+  pluginRoot?: string
 
   /**
    * 云开发代码根目录(需为相对路径)
    */
-  cloudbaseRoot: string
+  cloudbaseRoot?: string
 
   /**
    * 云函数代码根目录(需为相对路径)
    */
-  cloudfunctionRoot: string
+  cloudfunctionRoot?: string
 
   /**
    * 云函数本地调试请求模板的根目录(需为相对路径)
    */
-  cloudfunctionTemplateRoot: string
+  cloudfunctionTemplateRoot?: string
 
   /**
    * 云托管代码根目录(需为相对路径)
    */
-  cloudcontainerRoot: string
+  cloudcontainerRoot?: string
 
   /**
    * 编译类型
@@ -55,7 +58,7 @@ export interface ProjectConfig {
   /**
    * 项目设置
    */
-  setting: setting
+  setting?: setting
 
   /**
    * 基础库版本
@@ -69,7 +72,7 @@ export interface ProjectConfig {
    * `"widelyUsed"` 使用比例最高的基础库
    *
    */
-  libVersion: libVersion
+  libVersion?: libVersion
 
   /**
    * 项目的 appid，`只在新建项目时读取`
@@ -84,7 +87,7 @@ export interface ProjectConfig {
   /**
    * 项目描述
    */
-  description: string
+  description?: string
 
   /**
    * 打包配置选项
@@ -93,7 +96,7 @@ export interface ProjectConfig {
    *
    * 注: 这部分设置的更改可能需要重新打开项目才能生效。
    */
-  packOptions: packOptions
+  packOptions?: packOptions
 
   /**
    * 调试配置选项
@@ -102,7 +105,7 @@ export interface ProjectConfig {
    *
    * 注：配置此规则后，可能需要关闭并重新打开项目才能看到效果。
    */
-  debugOptions: debugOptions
+  debugOptions?: debugOptions
 
   /**
    * 文件监听配置设置
@@ -114,31 +117,43 @@ export interface ProjectConfig {
    * 从而不对这些文件进行文件遍历获取和文件内容变更的监听（watch），
    * 从而提高开启工具的速度以及减少工具打开占用的内存。
    */
-  watchOptions: watchOptions
+  watchOptions?: watchOptions
 
   /**
    * 指定自定义预处理的命令
    */
-  scripts: scripts
+  scripts?: scripts
 
   /**
    * 仅在小游戏项目中有效
    *
    * 在微信开发者工具里开启一个本地静态资源服务器，用于托管项目静态资源。
    */
-  staticServerOptions: staticServerOptions
+  staticServerOptions?: staticServerOptions
 
   /**
    * 指定自动生成的文件的 tabIndent 和 tabSize
    *
    */
-  editorSetting: editorSetting
+  editorSetting?: editorSetting
 
   /**
-   * 编译模式
+   * 编译模式，文档中未描述
    *
    */
-  condition: condition
+  condition?: condition
+
+  /**
+   * 模拟器类型
+   *
+   * @examples ["wechat"]
+   */
+  simulatorType?: string
+
+  /**
+   * 模拟器的版本
+   */
+  simulatorPluginLibVersion?: {}
 }
 
 /**
@@ -159,7 +174,7 @@ export interface setting {
    *
    * 允许私有设置 否
    */
-  condition: boolean
+  condition?: boolean
 
   /**
    * 是否启用 es6 转 es5
@@ -170,7 +185,7 @@ export interface setting {
    *
    * @default false
    */
-  es6: boolean
+  es6?: boolean
 
   /**
    * 是否打开增强编译
@@ -179,7 +194,7 @@ export interface setting {
    *
    * 注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`
    */
-  enhance: boolean
+  enhance?: boolean
 
   /**
    * 上传代码时样式是否自动补全
@@ -188,7 +203,7 @@ export interface setting {
    *
    * @default false
    */
-  postcss: boolean
+  postcss?: boolean
 
   /**
    * 上传代码时是否自动压缩脚本文件
@@ -197,21 +212,21 @@ export interface setting {
    *
    * @default false
    */
-  minified: boolean
+  minified?: boolean
 
   /**
    * 上传代码时是否自动压缩样式文件
    *
    * 允许私有设置 否
    */
-  minifyWXSS: boolean
+  minifyWXSS?: boolean
 
   /**
    * 上传代码时是否自动压缩 WXML 文件
    *
    * 允许私有设置 否
    */
-  minifyWXML: boolean
+  minifyWXML?: boolean
 
   /**
    * 上传时进行代码保护
@@ -220,14 +235,14 @@ export interface setting {
    *
    * @default false
    */
-  uglifyFileName: boolean
+  uglifyFileName?: boolean
 
   /**
    * 上传时是否过滤无依赖文件
    *
    * 允许私有设置 否
    */
-  ignoreUploadUnusedFiles: boolean
+  ignoreUploadUnusedFiles?: boolean
 
   /**
    * 是否自动运行体验评分
@@ -236,7 +251,7 @@ export interface setting {
    *
    * @default false
    */
-  autoAudits: boolean
+  autoAudits?: boolean
 
   /**
    * 是否检查安全域名和 TLS 版本
@@ -245,33 +260,33 @@ export interface setting {
    *
    * @default false
    */
-  urlCheck: boolean
+  urlCheck?: boolean
 
   /**
    * 是否开启文件保存后自动热重载
    *
    * 允许私有设置 是
    */
-  compileHotReLoad: boolean
+  compileHotReLoad?: boolean
 
   /**
    * 小程序加载时是否数据预拉取
    *
    * 允许私有设置 是
    */
-  preloadBackgroundData: boolean
+  preloadBackgroundData?: boolean
 
   /**
    * 是否启用懒注入占位组件调试
    *
    * 允许私有设置 是
    *
-   * 注: (懒注入占位组件调试) 开启[按需注入](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html)
+   * 注: (懒注入占位组件调试) 开启 [按需注入](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html)
    * 后在项目设置面板中会出现对应的勾选项，
    * 开启之后，按需注入的组件将会停止注入，页面停止在占位组件状态，
    * 便于调试自定义占位组件。
    */
-  lazyloadPlaceholderEnable: boolean
+  lazyloadPlaceholderEnable?: boolean
 
   /**
    * 仅在小游戏项目有效，是否开启静态资源服务器
@@ -281,14 +296,14 @@ export interface setting {
    * 注: (静态资源服务器) 可以托管项目本地的静态资源，
    * 主要用于在预览时测试小游戏真机资源加载的效果。
    */
-  useStaticServer: boolean
+  useStaticServer?: boolean
 
   /**
    * 预览及真机调试的时主包、分包体积上限调整为4M（小程序）、8M（小游戏）
    *
    * 允许私有设置 是
    */
-  bigPackageSizeSupport: boolean
+  bigPackageSizeSupport?: boolean
 
   // 以下字段是开发者工具的隐式设置
 
@@ -297,21 +312,21 @@ export interface setting {
    *
    * 允许私有设置 否
    */
-  babelSetting: babelSetting
+  babelSetting?: babelSetting
 
   /**
    * 编译插件配置
    *
    * 允许私有设置 否
    */
-  useCompilerPlugins: useCompilerPlugins[] | false
+  useCompilerPlugins?: useCompilerPlugins[] | false
 
   /**
    * 将 JS 编译成 ES5 时，是否禁用严格模式
    *
    * 允许私有设置 否
    */
-  disableUseStrict: boolean
+  disableUseStrict?: boolean
 
   /**
    * 上传时是否带上 sourcemap（默认为true）
@@ -320,7 +335,7 @@ export interface setting {
    *
    * @default true
    */
-  uploadWithSourceMap: boolean
+  uploadWithSourceMap?: boolean
 
   /**
    * 在小游戏插件项目中，是否启用 “以本地目录为插件资源来源” 特性
@@ -334,7 +349,7 @@ export interface setting {
    *
    * @default true
    */
-  localPlugins: boolean
+  localPlugins?: boolean
 
   /**
    * 是否手动配置构建 npm 的路径
@@ -343,21 +358,23 @@ export interface setting {
    *
    * @default true
    */
-  packNpmManually: boolean
+  packNpmManually?: boolean
 
   /**
-   * 仅 packNpmManually 为 true 时生效，详细参考[构建 npm 文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html)
+   * 仅 packNpmManually 为 true 时生效，详细参考 [构建 npm 文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html)
    *
    * 允许私有设置 否
+   *
+   * @examples require('.').packNpmRelationListExample
    */
-  packNpmRelationList: packNpmRelationList[]
+  packNpmRelationList?: packNpmRelationList[]
 
   /**
    * 仅是否使用工具渲染 `CoverView`
    *
    * 允许私有设置 是
    */
-  coverView: boolean
+  coverView?: boolean
 
   /**
    * 预览、真机调试和本地模拟器等开发阶段是否过滤无依赖文件（默认为true）
@@ -366,21 +383,21 @@ export interface setting {
    *
    * @default true
    */
-  ignoreDevUnusedFiles: boolean
+  ignoreDevUnusedFiles?: boolean
 
   /**
    * 是否展示 JSON 文件校验错误信息
    *
    * 允许私有设置 是
    */
-  checkInvalidKey: boolean
+  checkInvalidKey?: boolean
 
   /**
    * 是否开启调试器 WXML 面板展示 shadow-root
    *
    * 允许私有设置 是
    */
-  showShadowRootInWxmlPanel: boolean
+  showShadowRootInWxmlPanel?: boolean
 
   /**
    * 是否开启小程序独立域调试特性
@@ -392,7 +409,7 @@ export interface setting {
    * 仅在 2.11.1 及以上基础库有效。
    * 关闭此特性可能有助于规避一些调试中遇到的未知报错。
    */
-  useIsolateContext: boolean
+  useIsolateContext?: boolean
 
   /**
    * 是否开启模拟器预先载入小程序的某些资源。此设定为 false 时会导致 `useIsolateContext` 失效
@@ -403,7 +420,7 @@ export interface setting {
    * 调试时小程序的重新载入可能会更快一些。
    * 此设定不影响真机和实际运行效果。
    */
-  useMultiFrameRuntime: boolean
+  useMultiFrameRuntime?: boolean
 
   /**
    * 是否启用 `API Hook` 功能
@@ -413,7 +430,7 @@ export interface setting {
    * 注: (API Hook 功能) 关闭此内部特性可能导致工具的某些调试功能（例如 mock）失效。
    * 此设定不影响真机运行效果。
    */
-  useApiHook: boolean
+  useApiHook?: boolean
 
   /**
    * 是否在额外的进程处理一些小程序 API
@@ -424,56 +441,97 @@ export interface setting {
    * 部分 API 的调用会被移到单独的进程以减轻工具主进程的负担。
    * 此设定不影响真机运行效果。
    */
-  useApiHostProcess: boolean
+  useApiHostProcess?: boolean
 
   /**
    * 仅在小游戏有效，是否开启局域网调试服务器
    *
    * 允许私有设置 是
    */
-  useLanDebug: boolean
+  useLanDebug?: boolean
 
   /**
    * 是否在游戏引擎项目中开启支持引用 node 原生模块的底层加速特性
    *
    * 允许私有设置 是
    */
-  enableEngineNative: boolean
+  enableEngineNative?: boolean
 
   /**
    * 是否在本地设置中展示传统的 ES6 转 ES5 开关（对应 es6），增强编译开关 （对应 enhance）
    *
    * 允许私有设置 是
    */
-  showES6CompileOption: boolean
+  showES6CompileOption?: boolean
 
   /**
    * 是否打开SiteMap索引提示
    *
    * @default true
    */
-  checkSiteMap: boolean
-
-  /**
-   *
-   *
-   * @default true
-   */
-  newFeature: boolean
+  checkSiteMap?: boolean
 
   /**
    * 是否使用npm包
    *
    * @default false
    */
-  nodeModules: boolean
+  nodeModules?: boolean
 
+  /**
+   * 新特性，文档中未描述
+   */
+  newFeature?: boolean
+
+  /**
+   * 文档中未描述
+   */
+  bundle?: boolean
+
+  /**
+   * 文档中未描述
+   */
+  scopeDataCheck?: boolean
+
+  /**
+   * 使用新的编译模块，文档中未描述
+   */
+  useCompilerModule?: boolean
+
+  /**
+   * 文档中未描述
+   */
+  userConfirmedBundleSwitch?: boolean
+
+  /**
+   * 文档中未描述
+   */
+  userConfirmedUseCompilerModuleSwitch?: boolean
 }
 
+/**
+ * npm 包关系列表
+ */
 export interface packNpmRelationList {
+  /**
+   * `packageJsonPath` 表示 node_modules 源对应的 package.json
+   */
   packageJsonPath: string
+
+  /**
+   * miniprogramNpmDistDir 表示 node_modules 的构建结果目标位置
+   */
   miniprogramNpmDistDir: string
 }
+
+export const packNpmRelationListExample: packNpmRelationList[][] = [
+  [
+    {
+      packageJsonPath: './package.json',
+      miniprogramNpmDistDir: './miniprogram/',
+    },
+  ],
+]
 
 export type useCompilerPlugins = 'typescript' | 'less' | 'sass'
 
@@ -484,62 +542,32 @@ export interface babelSetting {
   /**
    * Babel 辅助函数的输出目录，默认为 `@babel/runtime`
    */
-  outputPath: string
+  outputPath?: string
 
   /**
    * 配置需要跳过Babel编译(包括代码压缩)处理的文件或目录
+   *
+   * @examples require('.').ignoreFileExamples
    */
-  ignore: string[]
+  ignore?: string[]
 
   /**
    * 关闭的插件
    */
-  disablePlugins: string[]
+  disablePlugins?: string[]
 }
 
-/**                方案一                      */
 /**
- * todo 生成 libVersion Schema 后 需要把 anyOf 中 type:object 改为 type:string
+ * 空接口
  *
- * https://github.com/microsoft/TypeScript/issues/29729
+ * https://github.com/microsoft/TypeScript/issues/29729#issuecomment-1483854699
+ *
+ * @TJS-type string
  */
+interface Nothing {}
+type LiteralUnion<T, U = string> = T | (U & Nothing)
 
-// interface Nothing {}
-// export type libVersion = 'latest' | 'trial' | 'widelyUsed' | (string & Nothing)
-
-/**                方案一                      */
-
-/**                方案二                      */
-/**
- * as any 是为了不让枚举值类型扩宽为 string 导致生成的 schema 缺少枚举提示
- * 但是会导致 ts 类型枚举值被吞
- */
-
-/**
- * libVersion 枚举值
- */
-export enum libVersionEnum {
-  /**
-   * 最新的非灰度中的基础库
-   */
-  latest = 'latest' as any,
-
-  /**
-   * 最新的基础库
-   */
-  trial = 'trial' as any,
-
-  /**
-   * 使用比例最高的基础库
-   */
-  widelyUsed = 'widelyUsed' as any,
-}
-
-export type libVersion = libVersionEnum | string
-
-// const test: T = "latest"
-
-/**                方案二                      */
+export type libVersion = LiteralUnion<'latest' | 'trial' | 'widelyUsed'>
 
 /**
  * packOptions 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。
@@ -549,12 +577,16 @@ export interface packOptions {
    * 用以配置打包时需要强制带上的文件（仅限后缀名白名单内）或者文件夹，
    * 匹配的这些文件或文件夹将一定会出现在预览或上传的结果内。
    * （该字段的优先级高于 packOptions.ignore）
+   *
+   * @examples require('.').packItemExample
    */
   include?: packItem[]
 
   /**
    * 用以配置打包时对符合指定规则的文件或文件夹进行忽略，
    * 以跳过打包的过程，这些文件或文件夹将不会出现在预览或上传的结果内。
+   *
+   * @examples require('.').packItemExample
    */
   ignore?: packItem[]
 }
@@ -579,7 +611,52 @@ export interface packItem {
   type: packItemType
 }
 
-export type packItemType = 'folder' | 'file' | 'suffix' | 'prefix' | 'regexp' | 'glob'
+export const packItemExample: packItem[][] = [
+  [
+    {
+      type: 'file',
+      value: 'test/test.js',
+    },
+  ],
+  [
+    {
+      type: 'folder',
+      value: 'test',
+    },
+  ],
+  [
+    {
+      type: 'suffix',
+      value: '.webp',
+    },
+  ],
+  [
+    {
+      type: 'prefix',
+      value: 'test-',
+    },
+  ],
+  [
+    {
+      type: 'glob',
+      value: 'test/**/*.js',
+    },
+  ],
+  [
+    {
+      type: 'regexp',
+      value: '\\.jsx$',
+    },
+  ],
+]
+
+export type packItemType =
+  | 'folder'
+  | 'file'
+  | 'suffix'
+  | 'prefix'
+  | 'regexp'
+  | 'glob'
 
 /**
  * debugOptions 用以配置在对项目代码进行调试时的选项。
@@ -592,6 +669,8 @@ export interface debugOptions {
    * ```js
    * // xxx.js has been hided by project.config.json
    * ```
+   *
+   * @examples require('.').packItemExample
    */
   hidedInDevtools?: packItem[]
 }
@@ -623,9 +702,16 @@ export interface watchOptions {
    * - *(pattern|pattern|pattern) 匹配0到多个括号内的模式
    * - \@(pattern|pat*|pat?erN) 精确匹配括号内的模式
    * - ** 匹配0到多个子目录，递归匹配子目录
+   *
+   * @examples require('.').ignoreFileExamples
    */
-  ignore?: string
+  ignore?: string[]
 }
+
+export const ignoreFileExamples: string[][] = [
+  ['utils/util.js'],
+  ['libs/**/**'],
+]
 
 /**
  * 指定自定义预处理的命令
@@ -634,17 +720,17 @@ export interface scripts {
   /**
    * 编译前预处理命令
    */
-  beforeCompile: string
+  beforeCompile?: string
 
   /**
    * 预览前预处理命令
    */
-  beforePreview: string
+  beforePreview?: string
 
   /**
    * 上传前预处理命令
    */
-  beforeUpload: string
+  beforeUpload?: string
 }
 
 /**
@@ -658,13 +744,15 @@ export interface staticServerOptions {
    * 之后就可以通过工具提供的 `本地ip:端口port/` 来访问具体的静态资源。
    * 通常可以用于上线发布前预览测试静态资源加载效果。
    */
-  servePath: string
+  servePath?: string
 }
 
 /**
  * 编辑器设置 （会覆盖工具里的设置）
  *
  * 指定自动生成的文件的 tabIndent 和 tabSize
+ *
+ * @examples require('.').editorSettingExample
  */
 export interface editorSetting {
   /**
@@ -677,23 +765,114 @@ export interface editorSetting {
    * `"tab"` 使用 Tab
    *
    */
-  tabIndent: 'auto' | 'insertSpaces' | 'tab'
+  tabIndent?: 'auto' | 'insertSpaces' | 'tab'
 
   /**
    * tab 大小
+   *
+   * @TJS-type integer
    *
    * @default 4
    */
   tabSize?: number
 }
 
+export const editorSettingExample: editorSetting[] = [{
+  tabIndent: 'insertSpaces',
+  tabSize: 2,
+}]
+
 export interface condition {
-  search: string
-  conversation: string
-  plugin: string
-  game: string
-  miniprogram: string
+  search?: partialCompileList
+  conversation?: partialCompileList
+
+  /**
+   * 小游戏模式
+   */
+  game?: partialCompileList
+
+  /**
+   * 小游戏插件模式
+   */
+  gamePlugin?: partialCompileList
+
+  /**
+   * 插件模式
+   */
+  plugin?: partialCompileList
+
+  /**
+   * 小程序模式
+   */
+  miniprogram?: partialCompileList
 }
+
+/**
+ * 局部编译
+ */
+export interface partialCompileList {
+  /**
+   *
+   * @TJS-type integer
+   */
+  current?: number
+
+  /**
+   * 局部编译
+   *
+   * <https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>
+   *
+   * @examples require('.').partialCompileExample
+   */
+  list?: partialCompile[]
+}
+
+export interface partialCompile {
+  /**
+   * 模式名称 [详情](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
+   */
+  name: string
+
+  /**
+   * 启动页面路径 [详情](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
+   */
+  pathName: string
+
+  /**
+   * 启动参数 [详情](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
+   */
+  query: string
+
+  /**
+   * 进入场景 [详情](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
+   */
+  scene: string | number | null
+
+  shareInfo?: {}
+
+  referrerInfo?: {}
+
+  groupInfo?: {}
+}
+
+export const partialCompileExample: partialCompile[][] = [
+  [
+    {
+      name: '登录',
+      pathName: 'pages/login/index',
+      query: 'name=vendor&color=black',
+      scene: null,
+    },
+  ],
+  [
+    {
+      name: '首页',
+      pathName: 'pages/index/index',
+      query: 'scene=666',
+      scene: null,
+    },
+  ],
+]
 
 // todo 添加 "markdownDescription"
 // https://github.com/microsoft/vscode/issues/34498

@@ -13,7 +13,10 @@
         "typescript-json-schema",
         "types/wx/${fileBasename}",
         "ProjectConfig",
-        "-o=types/wx/debug.schema.json"
+        "-o=types/wx/debug.schema.json",
+        "--required",
+        "--tsNodeRegister",
+        "--strictNullChecks"
       ],
       "cwd": "${workspaceFolder}/packages/schema",
       "skipFiles": [
