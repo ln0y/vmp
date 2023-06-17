@@ -23,5 +23,21 @@
         "<node_internals>/**"
       ],
     },
+    {
+      "type": "node",
+      "name": "Schema2",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "ts-json-schema-generator",
+        "--path=types/wx/${fileBasename}",
+        "--type=ProjectConfig",
+        "--out=types/wx/debug.schema.json",
+      ],
+      "cwd": "${workspaceFolder}/packages/schema",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+    },
   ],
 }
