@@ -808,7 +808,7 @@ export interface editorSetting {
   /**
    * tab 大小
    *
-   * @TJS-type integer
+   * @asType integer
    *
    * @default 4
    */
@@ -869,7 +869,7 @@ export interface condition {
 export type customCompileList<T = baseCustomCompile> = {
   /**
    *
-   * @TJS-type integer
+   * @asType integer
    */
   current?: number
 
