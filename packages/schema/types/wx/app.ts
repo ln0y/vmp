@@ -1047,7 +1047,12 @@ export interface IHalfPage {
   /**
    * 视频号直播打开的第一个页面的全屏状态使用自定义顶部，支持 `default` / `custom`
    */
-  firstPageNavigationStyle?: string
+  firstPageNavigationStyle?: EFirstPageNavigationStyle | string
 
   [key: string]: any
+}
+
+export enum EFirstPageNavigationStyle {
+  default = 'default',
+  custom = 'custom',
 }
