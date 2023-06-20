@@ -38,7 +38,9 @@
     "json": "typescript-json-schema \"types/**/*.ts\" \"ProjectConfig\""
   },
   "devDependencies": {
+    "json-schema-to-typescript": "^13.0.2",
     "ts-json-schema-generator": "^1.2.0",
     "typescript-json-schema": "^0.56.0"
-  }
+  },
+  "dependencies": {}
 }

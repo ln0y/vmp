@@ -376,6 +376,32 @@ export interface App {
    */
   componentFramework?: EComponentFramework | string
 
+  // 以下属性未记录在文档中
+
+  static?: IAppJSONStaticConfig[]
+
+  'mini-ios'?: App
+
+  'mini-android'?: App
+
+  'mini-weixin'?: App
+
+  __warning__?: string
+
+  componentPlaceholder?: Record<string, string>
+
+  mimeTypeDeclarations?: Record<string, string>
+
+  displayMode?: EDisplayMode | string
+
+  frameset?: boolean
+
+  cloud?: boolean
+  cloudVersion?: string
+  openDataContext?: string
+  openLocationPagePath?: string
+  requireBackgroundModes?: string[]
+
   [key: string]: any
 }
 
@@ -1213,4 +1239,22 @@ export interface ISkylineOptions {
 export enum EComponentFramework {
   exparser = 'exparser',
   glass_easel = 'glass-easel',
+}
+
+export interface IAppJSONStaticConfig {
+  pattern: string
+  platforms: (EPlatforms | string)[]
+  [key: string]: any
+}
+
+export enum EPlatforms {
+  mini_android = 'mini-android',
+  mini_ios = 'mini-ios',
+  mini_weixin = 'mini-weixin',
+}
+
+export enum EDisplayMode {
+  desktop = 'desktop',
+  mobile = 'mobile',
+  pad = 'pad',
 }
