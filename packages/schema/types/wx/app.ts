@@ -26,7 +26,7 @@ export interface App {
    *
    * **小程序中新增/减少页面，都需要对 pages 数组进行修改。**
    */
-  pages: string[]
+  pages: pages
 
   /**
    * 全局的默认窗口表现
@@ -115,6 +115,8 @@ export interface App {
    * 注：微信客户端 6.7.2 及以上版本支持
    *
    * 注：在此处申明了后台运行的接口，开发版和体验版上可以直接生效，正式版还需通过审核。
+   *
+   * @uniqueItems true
    */
   requiredBackgroundModes?: (ERequiredBackgroundModes | string)[]
 
@@ -301,6 +303,78 @@ export interface App {
    * 注：基础库 2.18.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
   halfPage?: IHalfPage
+
+  /**
+   * 调试相关配置
+   *
+   * 注：基础库 2.22.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  debugOptions?: IDebugOptions
+
+  /**
+   * touch 事件监听是否为 passive
+   *
+   * `touch` 相关事件默认的 `passive` 为 `false`。
+   * 如果小程序不使用 `catchtouch*` 事件时，可以通过这个选项将 `passive` 置为 `true`，
+   * 以提高滚动性能。具体原理可参考 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners) 。
+   *
+   * 可以直接设置这个选项为 `true`，也可以分别控制某个事件。
+   *
+   * 注：基础库 2.24.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  enablePassiveEvent?: IEnablePassiveEvent | boolean
+
+  /**
+   * 自定义模块映射规则
+   *
+   * 注意: 目前使用该能力的时候，需要在工具上关闭上传代码保护功能。
+   *
+   * 使用 `resolveAlias` 配置项用来自定义模块路径的映射规则。
+   * 配置了之后，会对 `require` 里的模块路径进行规则匹配并映射成配置的路径。
+   * 如果命中多条映射规则，则取最长的命中规则。
+   *
+   * ```json
+   * "resolveAlias": {
+   *   "~/*": "/*",
+   *   "~/origin/*": "origin/*",
+   *   "@utils/*": "utils/*",
+   *   "subBUtils/*": "subpackageB/utils/*"
+   * }
+   * ```
+   *
+   * `resolveAlias` 进行的是路径匹配，其中的 key 和 value 须以 `/*` 结尾。
+   *
+   * 如果在 project.config.json 中指定了 miniprogramRoot，
+   * 则 `/*` 指代的根目录是 miniprogramRoot 对应的路径，而不是开发者工具项目的根目录
+   */
+  resolveAlias?: Record<string, string>
+
+  /**
+   * 指定小程序全局的默认渲染后端。
+   *
+   * 可选值：`webview` , [`skyline`](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/introduction.html)
+   *
+   * 注：基础库 2.30.4 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   *
+   * @default "webview"
+   */
+  renderer?: ERenderer | string
+
+  /**
+   * 小程序渲染后端的相关配置选项
+   *
+   * 注：基础库 2.31.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  rendererOptions?: IRendererOptions
+
+  /**
+   * 组件框架，详见 [相关文档](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html)
+   *
+   * 注：基础库 2.30.4 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   *
+   * @default "exparser"
+   */
+  componentFramework?: EComponentFramework | string
 
   [key: string]: any
 }
@@ -525,6 +599,9 @@ export interface ITabBar {
   /**
    * tab 的列表，最少 2 个、最多 5 个 tab，
    * tab 按数组的顺序排序，每个项都是一个对象。
+   *
+   * @minItems 2
+   * @maxItems 5
    */
   list: ITabBarListItem[]
 
@@ -631,7 +708,7 @@ export interface ISubpackages {
   /**
    * 分包页面路径，相对于分包根目录
    */
-  pages: string[]
+  pages: pages
 
   /**
    * 分包是否是 [独立分包](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/independent.html)
@@ -645,6 +722,13 @@ export interface ISubpackages {
 
   [key: string]: any
 }
+
+/**
+ * 页面路径
+ *
+ * @uniqueItems true
+ */
+type pages = string[]
 
 export interface IWorkers {
   /**
@@ -940,13 +1024,14 @@ export interface IUseExtendedLib {
   [key: string]: any
 }
 
-export interface IEntranceDeclare {
+export type IEntranceDeclare = {
   /**
    * 聊天位置消息
    */
   locationMessage?: ILocationMessage
 
-  [key: string]: any
+} & {
+  [key: string]: ILocationMessage
 }
 
 export interface ILocationMessage {
@@ -1055,4 +1140,77 @@ export interface IHalfPage {
 export enum EFirstPageNavigationStyle {
   default = 'default',
   custom = 'custom',
+}
+
+export interface IDebugOptions {
+  /**
+   * 是否开启 [FPS 面板](https://developers.weixin.qq.com/miniprogram/dev/framework/performance/fps_panel.html)
+   *
+   * @default false
+   */
+  enableFPSPanel?: boolean | string
+
+  [key: string]: any
+}
+
+export interface IEnablePassiveEvent {
+  /**
+   * 是否设置 touchstart 事件为 passive
+   *
+   * @default false
+   */
+  touchstart?: boolean
+
+  /**
+   * 是否设置 touchmove 事件为 passive
+   *
+   * @default false
+   */
+  touchmove?: boolean
+
+  /**
+   * 是否设置 wheel 事件为 passive
+   *
+   * @default false
+   */
+  wheel?: boolean
+
+  [key: string]: any
+}
+
+export enum ERenderer {
+  webview = 'webview',
+  skyline = 'skyline',
+}
+
+export interface IRendererOptions {
+  /**
+   * Skyline 渲染引擎的相关配置项
+   */
+  skyline?: ISkylineOptions
+
+  [key: string]: any
+}
+
+export interface ISkylineOptions {
+  /**
+   * [开启默认Block布局](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/wxss.html#%E5%BC%80%E5%90%AF%E9%BB%98%E8%AE%A4Block%E5%B8%83%E5%B1%80)
+   *
+   * @default false
+   */
+  defaultDisplayBlock?: boolean
+
+  /**
+   * [关闭 Skyline AB 实验](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/migration/release.html#%E7%A8%B3%E5%AE%9A%E6%80%A7)
+   *
+   * @default false
+   */
+  disableABTest?: boolean
+
+  [key: string]: any
+}
+
+export enum EComponentFramework {
+  exparser = 'exparser',
+  glass_easel = 'glass-easel',
 }
