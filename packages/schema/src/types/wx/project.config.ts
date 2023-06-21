@@ -53,12 +53,12 @@ export interface ProjectConfig {
    *
    * @default "miniprogram"
    */
-  compileType: compileType | string
+  compileType: ECompileType | string
 
   /**
    * 项目的编译设置，可以指定以下设置。部分设置无法在 `project.private.config.json` 中生效
    */
-  setting?: setting
+  setting?: ISetting
 
   /**
    * 基础库版本
@@ -72,7 +72,7 @@ export interface ProjectConfig {
    * - `"widelyUsed"` 使用比例最高的基础库
    *
    */
-  libVersion?: libVersion | string
+  libVersion?: ELibVersion | string
 
   /**
    * 项目的 appid，`只在新建项目时读取`
@@ -96,7 +96,7 @@ export interface ProjectConfig {
    *
    * 注: 这部分设置的更改可能需要重新打开项目才能生效。
    */
-  packOptions?: packOptions
+  packOptions?: IPackOptions
 
   /**
    * 调试配置选项
@@ -105,7 +105,7 @@ export interface ProjectConfig {
    *
    * 注：配置此规则后，可能需要关闭并重新打开项目才能看到效果。
    */
-  debugOptions?: debugOptions
+  debugOptions?: IDebugOptions
 
   /**
    * 文件监听配置设置
@@ -117,19 +117,19 @@ export interface ProjectConfig {
    * 从而不对这些文件进行文件遍历获取和文件内容变更的监听（watch），
    * 从而提高开启工具的速度以及减少工具打开占用的内存。
    */
-  watchOptions?: watchOptions
+  watchOptions?: IWatchOptions
 
   /**
    * 指定自定义预处理的命令
    */
-  scripts?: scripts
+  scripts?: IScripts
 
   /**
    * 仅在小游戏项目中有效
    *
    * 在微信开发者工具里开启一个本地静态资源服务器，用于托管项目静态资源。
    */
-  staticServerOptions?: staticServerOptions
+  staticServerOptions?: IStaticServerOptions
 
   /**
    * 编辑器设置 （会覆盖工具里的设置）
@@ -138,13 +138,13 @@ export interface ProjectConfig {
    *
    * @examples require('.').editorSettingExample
    */
-  editorSetting?: editorSetting
+  editorSetting?: IEditorSetting
 
   /**
    * 编译模式，文档中未描述
    *
    */
-  condition?: condition
+  condition?: ICondition
 
   /**
    * 模拟器类型
@@ -161,7 +161,7 @@ export interface ProjectConfig {
   /**
    * 骨架屏配置 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html)
    */
-  skeletonConfig?: skeletonConfig
+  skeletonConfig?: ISkeletonConfig
 
   /**
    *
@@ -184,7 +184,7 @@ export interface ProjectConfig {
 /**
  * 编译类型作用于开发工具的以下设置
  */
-export enum compileType {
+export enum ECompileType {
   /**
    * 当前为小程序插件项目
    */
@@ -196,7 +196,7 @@ export enum compileType {
   miniprogram = 'miniprogram',
 }
 
-export interface setting {
+export interface ISetting {
   /**
    * 启用条件编译 [点击查看文档](https://dev.weixin.qq.com/docs/framework/dev/framework/operation/condition-compile.html)
    *
@@ -340,14 +340,14 @@ export interface setting {
    *
    * 允许私有设置 否
    */
-  babelSetting?: babelSetting
+  babelSetting?: IBabelSetting
 
   /**
    * 编译插件配置
    *
    * 允许私有设置 否
    */
-  useCompilerPlugins?: useCompilerPlugins[] | false
+  useCompilerPlugins?: EUseCompilerPlugins[] | false
 
   /**
    * 将 JS 编译成 ES5 时，是否禁用严格模式
@@ -395,7 +395,7 @@ export interface setting {
    *
    * @examples require('.').packNpmRelationListExample
    */
-  packNpmRelationList?: packNpmRelationList[]
+  packNpmRelationList?: IPackNpmRelationList[]
 
   /**
    * 仅是否使用工具渲染 `CoverView`
@@ -539,7 +539,7 @@ export interface setting {
   [key: string]: any
 }
 
-export interface packNpmRelationList {
+export interface IPackNpmRelationList {
   /**
    * `packageJsonPath` 表示 node_modules 源对应的 package.json
    */
@@ -553,7 +553,7 @@ export interface packNpmRelationList {
   [key: string]: any
 }
 
-export const packNpmRelationListExample: packNpmRelationList[][] = [
+export const packNpmRelationListExample: IPackNpmRelationList[][] = [
   [
     {
       packageJsonPath: './package.json',
@@ -562,9 +562,13 @@ export const packNpmRelationListExample: packNpmRelationList[][] = [
   ],
 ]
 
-export type useCompilerPlugins = 'typescript' | 'less' | 'sass'
+export enum EUseCompilerPlugins {
+  typescript = 'typescript',
+  less = 'less',
+  sass = 'sass',
+}
 
-export interface babelSetting {
+export interface IBabelSetting {
   /**
    * Babel 辅助函数的输出目录，默认为 `@babel/runtime`
    */
@@ -585,7 +589,7 @@ export interface babelSetting {
   [key: string]: any
 }
 
-export enum libVersion {
+export enum ELibVersion {
   /**
    * 最新的非灰度中的基础库
    */
@@ -602,7 +606,7 @@ export enum libVersion {
   widelyUsed = 'widelyUsed',
 }
 
-export interface packOptions {
+export interface IPackOptions {
   /**
    * 用以配置打包时需要强制带上的文件（仅限后缀名白名单内）或者文件夹，
    * 匹配的这些文件或文件夹将一定会出现在预览或上传的结果内。
@@ -716,7 +720,7 @@ export const packItemExample: packItem[][] = [
   ],
 ]
 
-export interface debugOptions {
+export interface IDebugOptions {
   /**
    * 用以配置调试时于调试器 Sources 面板隐藏源代码的文件。
    *
@@ -732,7 +736,7 @@ export interface debugOptions {
   [key: string]: any
 }
 
-export interface watchOptions {
+export interface IWatchOptions {
   /**
    * `ignore`用以配置工具时对符合指定规则的文件或文件夹进行忽略
    * (`忽略的文件将不展示在编辑器文件列表和对该文件进行监听`），
@@ -762,7 +766,7 @@ export const ignoreFileExamples: string[][] = [
   ['libs/**/**'],
 ]
 
-export interface scripts {
+export interface IScripts {
   /**
    * 编译前预处理命令
    */
@@ -781,7 +785,7 @@ export interface scripts {
   [key: string]: any
 }
 
-export interface staticServerOptions {
+export interface IStaticServerOptions {
   /**
    * 可以指向项目路径下的某个目录作为静态资源路径。
    * 之后就可以通过工具提供的 `本地ip:端口port/` 来访问具体的静态资源。
@@ -792,7 +796,7 @@ export interface staticServerOptions {
   [key: string]: any
 }
 
-export interface editorSetting {
+export interface IEditorSetting {
   /**
    * tab 缩进
    *
@@ -803,7 +807,7 @@ export interface editorSetting {
    * - `"tab"` 使用 Tab
    *
    */
-  tabIndent?: tabIndent | string
+  tabIndent?: ETabIndent | string
 
   /**
    * tab 大小
@@ -817,7 +821,7 @@ export interface editorSetting {
   [key: string]: any
 }
 
-export enum tabIndent {
+export enum ETabIndent {
   /**
    * 自动检测缩进
    */
@@ -834,39 +838,39 @@ export enum tabIndent {
   tab = 'tab',
 }
 
-export const editorSettingExample: editorSetting[] = [{
+export const editorSettingExample: IEditorSetting[] = [{
   tabIndent: 'insertSpaces',
   tabSize: 2,
 }]
 
-export interface condition {
-  search?: customCompileList
-  conversation?: customCompileList
+export interface ICondition {
+  search?: ICustomCompileList
+  conversation?: ICustomCompileList
 
   /**
    * 小游戏模式
    */
-  game?: customCompileList<gameCustomCompile>
+  game?: ICustomCompileList<gameCustomCompile>
 
   /**
    * 小游戏插件模式
    */
-  gamePlugin?: customCompileList
+  gamePlugin?: ICustomCompileList
 
   /**
    * 插件模式
    */
-  plugin?: customCompileList<pluginCustomCompile>
+  plugin?: ICustomCompileList<pluginCustomCompile>
 
   /**
    * 小程序模式
    */
-  miniprogram?: customCompileList<miniprogramCustomCompile>
+  miniprogram?: ICustomCompileList<miniprogramCustomCompile>
 
   [key: string]: any
 }
 
-export type customCompileList<T = baseCustomCompile> = {
+export type ICustomCompileList<T = IBaseCustomCompile> = {
   /**
    *
    * @asType integer
@@ -884,7 +888,7 @@ export type customCompileList<T = baseCustomCompile> = {
   [key: string]: any
 }
 
-interface baseCustomCompile {
+interface IBaseCustomCompile {
   /**
    * 模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
    */
@@ -909,7 +913,7 @@ interface baseCustomCompile {
   [key: string]: any
 }
 
-export interface gameCustomCompile extends baseCustomCompile {
+export interface gameCustomCompile extends IBaseCustomCompile {
 
   /**
    * 启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
@@ -919,7 +923,7 @@ export interface gameCustomCompile extends baseCustomCompile {
   chatroomUsernameInfo?: {}
 }
 
-export interface pluginCustomCompile extends baseCustomCompile {
+export interface pluginCustomCompile extends IBaseCustomCompile {
 
   /**
    * 启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
@@ -931,27 +935,27 @@ export interface pluginCustomCompile extends baseCustomCompile {
    *
    *
    */
-  launchMode?: launchMode | string
+  launchMode?: ILaunchMode | string
 }
 
-export interface miniprogramCustomCompile extends baseCustomCompile {
+export interface miniprogramCustomCompile extends IBaseCustomCompile {
 
   /**
    * 启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)
    */
   pathName: string
 
-  launchMode?: launchMode | string
+  launchMode?: ILaunchMode | string
 
   /**
    * 局部编译
    */
-  partialCompile?: partialCompile
+  partialCompile?: IPartialCompile
 
   chatroomUsernameInfo?: {}
 }
 
-export enum launchMode {
+export enum ILaunchMode {
   /**
    * 默认
    */
@@ -978,7 +982,7 @@ export enum launchMode {
   embedded = 'embedded',
 }
 
-export interface partialCompile {
+export interface IPartialCompile {
   /**
    * 是否开启局部编译
    */
@@ -1011,17 +1015,17 @@ export interface partialCompile {
 //   ],
 // ]
 
-export interface skeletonConfig {
+export interface ISkeletonConfig {
   /**
    * 全局配置
    */
-  global: ISkeletonConfig
+  global: ISkeletonConfigs
   pages?: {
-    [key: string]: ISkeletonConfig
+    [key: string]: ISkeletonConfigs
   }
 }
 
-export interface ISkeletonConfig {
+export interface ISkeletonConfigs {
   /**
    * 骨架屏显示时的动画
    *
@@ -1033,7 +1037,7 @@ export interface ISkeletonConfig {
    *
    * @default "spin"
    */
-  loading?: loading | string
+  loading?: ELoading | string
 
   /**
    * 骨架页面中的边框
@@ -1082,7 +1086,7 @@ export interface ISkeletonConfig {
      *
      * - `"rect"` （矩形）。
      */
-    shape: shape | string
+    shape: EShape | string
 
     /**
      * shapeOpposite 字段接受一个数组，数组中每个元素是一个 DOM 选择器，
@@ -1128,7 +1132,7 @@ export interface ISkeletonConfig {
      *
      * - `"rect"` （矩形）。
      */
-    shape: shape | string
+    shape: EShape | string
 
     [key: string]: any
   }
@@ -1179,7 +1183,7 @@ export interface ISkeletonConfig {
    *
    * @default "fullscreen"
    */
-  mode?: mode | string
+  mode?: EMode | string
 
   /**
    * 骨架屏模板的 name 值
@@ -1193,7 +1197,7 @@ export interface ISkeletonConfig {
    *
    * @default "rpx"
    */
-  cssUnit?: cssUnit | string
+  cssUnit?: ECssUnit | string
 
   /**
    * 生成骨架页面中 css 值保留的小数位数，默认值是 4
@@ -1205,23 +1209,23 @@ export interface ISkeletonConfig {
   [key: string]: any
 }
 
-export enum loading {
+export enum ELoading {
   chiaroscuro = 'chiaroscuro',
   shine = 'shine',
   spin = 'spin',
 }
 
-export enum shape {
+export enum EShape {
   circle = 'circle',
   rect = 'rect',
 }
 
-export enum mode {
+export enum EMode {
   auto = 'auto',
   fullscreen = 'fullscreen',
 }
 
-export enum cssUnit {
+export enum ECssUnit {
   rem = 'rem',
   rpx = 'rpx',
   vh = 'vh',
