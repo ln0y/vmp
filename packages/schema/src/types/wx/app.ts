@@ -1258,3 +1258,5 @@ export enum EDisplayMode {
   mobile = 'mobile',
   pad = 'pad',
 }
+
+export type Schema = App

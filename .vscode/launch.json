@@ -30,9 +30,9 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": [
         "ts-json-schema-generator",
-        "--path=types/wx/${fileBasename}",
-        "--type=App",
-        "--out=types/wx/debug.schema.json",
+        "--type=Schema",
+        "--path=src/types/wx/${fileBasename}",
+        "--out=src/types/wx/debug.schema.json",
       ],
       "cwd": "${workspaceFolder}/packages/schema",
       "skipFiles": [

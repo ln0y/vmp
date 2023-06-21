@@ -1230,5 +1230,7 @@ export enum cssUnit {
   vw = 'vw',
 }
 
+export type Schema = ProjectConfig
+
 // todo 添加 "markdownDescription"
 // https://github.com/microsoft/vscode/issues/34498
