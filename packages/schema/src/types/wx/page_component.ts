@@ -87,9 +87,12 @@ export interface Components extends PageBase {
  * `app.json` 中的部分配置，也支持对单个页面进行配置，
  * 可以在页面对应的 .json 文件来对本页面的表现进行配置。
  *
+ * 微信文档：
+ *
  * <https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/page.html>
  *
- * 微信官方 schema
+ * 微信官方 schema：
+ *
  * <https://dldir1.qq.com/WechatWebDev/plugins/editor/wechat-miniprogram_wx-json/1.0.0/page_component.schema.json>
  */
 export interface Page extends Components {

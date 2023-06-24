@@ -3,9 +3,12 @@
  *
  * 可以在项目根目录使用 `project.config.json` 文件对项目进行配置。
  *
+ * 微信文档：
+ *
  * <https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html>
  *
- * 微信官方 schema
+ * 微信官方 schema：
+ *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/project.config.schema.json>
  */
 export interface ProjectConfig {

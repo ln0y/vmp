@@ -7,9 +7,12 @@
  *
  * 注：没有 sitemap.json 则默认所有页面都能被索引
  *
+ * 微信文档：
+ *
  * <https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/sitemap.html>
  *
- * 微信官方 schema
+ * 微信官方 schema：
+ *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/sitemap.schema.json>
  */
 export interface Sitemap {

@@ -1,11 +1,16 @@
+import type { AdditionalProperties } from '../utils'
+
 /**
  * 小程序全局配置
  *
  * 小程序根目录下的 `app.json` 文件用来对微信小程序进行全局配置。
  *
+ * 微信文档：
+ *
  * <https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html>
  *
  * 微信官方 schema
+ *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/app.schema.json>
  */
 export interface App {
@@ -401,8 +406,6 @@ export interface App {
   openDataContext?: string
   openLocationPagePath?: string
   requireBackgroundModes?: string[]
-
-  [key: string]: any
 }
 
 export interface IWindow {
@@ -546,8 +549,6 @@ export interface IWindow {
    * 最低版本：[2.15.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
   handleWebviewPreload?: EHandleWebviewPreload | string
-
-  [key: string]: any
 }
 
 export enum ENavigationBarTextStyle {
@@ -1259,4 +1260,4 @@ export enum EDisplayMode {
   pad = 'pad',
 }
 
-export type Schema = App
+export type Schema = AdditionalProperties<App>
