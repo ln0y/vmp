@@ -1,8 +1,6 @@
 import type { App, ITabBar } from './app'
 import type { Page } from './page_component'
 
-type T = Omit<App, 'tabBar'>
-
 /**
  * 第三方平台开发配置
  *
@@ -18,7 +16,7 @@ type T = Omit<App, 'tabBar'>
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/ext.schema.json>
  */
-export interface Ext extends Partial<T> {
+export interface Ext extends Omit<Partial<App>, 'tabBar'> {
   /**
    * 配置 ext.json 是否生效
    *
@@ -66,17 +64,16 @@ export interface Ext extends Partial<T> {
    */
   directCommit?: boolean
 
+  // todo required "list" property
+  /**
+   * 底部 `tab` 栏的表现
+   *
+   * 如果小程序是一个多 tab 应用（客户端窗口的底部或顶部有 tab 栏可以切换页面），
+   * 可以通过 tabBar 配置项指定 tab 栏的表现，以及 tab 切换时显示的对应页面。
+   */
   tabBar?: Partial<ITabBar>
 
   [key: string]: any
 }
-
-// const T3: Ext = {
-//   extAppid: '33',
-//   extEnable: true,
-//   window: {
-//     backgroundColor: '#fff',
-//   },
-// }
 
 export type Schema = Ext
