@@ -92,4 +92,4 @@ export interface ContainerConfig {
   flowRatio?: 0 | 1
 }
 
-export type Scheam = AdditionalProperties<ContainerConfig>
+export type Schema = AdditionalProperties<ContainerConfig>

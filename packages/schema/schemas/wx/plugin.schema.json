@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "$ref": "#/definitions/AdditionalProperties%3CPlugin%3E"
+    },
+    "AdditionalProperties<Plugin>": {
+      "type": "object",
+      "properties": {
+        "main": {
+          "type": "string",
+          "description": "导出的所有 js 接口"
+        },
+        "publicComponents": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "开放自定义组件"
+        },
+        "usingComponents": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "使用自定义组件"
+        },
+        "pages": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "开放页面"
+        },
+        "cloud": {
+          "type": "boolean",
+          "description": "使用云开发"
+        }
+      }
+    }
+  }
+}

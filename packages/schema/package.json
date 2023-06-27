@@ -43,9 +43,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "unbuild && pnpm run patch-cjs",
-    "dev": "tsx ./script/generateJson.ts",
-    "json": "typescript-json-schema \"types/**/*.ts\" \"ProjectConfig\""
+    "dev": "tsx ./script/schemaGenerator.mts"
   },
   "devDependencies": {
     "json-schema-to-typescript": "^13.0.2",

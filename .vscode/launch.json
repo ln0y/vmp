@@ -5,27 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "name": "Schema",
+      "name": "debug ts",
       "request": "launch",
       "runtimeExecutable": "npx",
       "runtimeArgs": [
-        "typescript-json-schema",
-        "types/wx/${fileBasename}",
-        "ProjectConfig",
-        "-o=types/wx/debug.schema.json",
-        "--required",
-        "--tsNodeRegister",
-        "--strictNullChecks"
+        "tsx",
+        "${file}",
       ],
-      "cwd": "${workspaceFolder}/packages/schema",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "type": "node"
     },
     {
       "type": "node",
-      "name": "Schema2",
+      "name": "Schema",
       "request": "launch",
       "runtimeExecutable": "npx",
       "runtimeArgs": [

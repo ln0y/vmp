@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "$ref": "#/definitions/AdditionalProperties%3CContainerConfig%3E"
+    },
+    "AdditionalProperties<ContainerConfig>": {
+      "type": "object",
+      "properties": {
+        "remark": {
+          "type": "string",
+          "markdownDescription": true,
+          "description": "**版本备注**"
+        },
+        "dockerfilePath": {
+          "type": "string",
+          "description": "Dockerfile 相对文件夹的路径",
+          "default": "Dockerfile"
+        },
+        "buildDir": {
+          "type": "string",
+          "description": "构建目录"
+        },
+        "minNum": {
+          "type": "number",
+          "description": "云端运行的最少实例数量",
+          "default": 0
+        },
+        "maxNum": {
+          "type": "number",
+          "description": "云端运行的最大实例数量",
+          "default": 50
+        },
+        "cpu": {
+          "type": "number",
+          "description": "实例 CPU 规格（单位：核）",
+          "default": 0.5
+        },
+        "mem": {
+          "type": "number",
+          "description": "实例内存规格（单位：GB）",
+          "default": 1
+        },
+        "policyType": {
+          "type": "string",
+          "description": "自动扩缩容依据，默认 cpu",
+          "default": "cpu"
+        },
+        "policyThreshold": {
+          "type": "number",
+          "description": "自动扩缩容临界点",
+          "default": 60
+        },
+        "envParams": {
+          "type": "object",
+          "description": "环境变量"
+        },
+        "containerPort": {
+          "type": "number",
+          "description": "容器内部监听的端口号"
+        },
+        "initialDelaySeconds": {
+          "type": "number",
+          "description": "启动检测延迟，如 2s 则会在启动后 2s 检测判断容器实例是否正常启动",
+          "default": 2
+        },
+        "flowRatio": {
+          "type": "number",
+          "enum": [
+            0,
+            1
+          ],
+          "description": "是否将新部署的版本的流量设为 100%，如果填 1 则是，填 0 则设为 0%，仅支持 0 或 1",
+          "default": 0
+        }
+      }
+    }
+  }
+}

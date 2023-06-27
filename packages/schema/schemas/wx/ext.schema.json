@@ -1,0 +1,1704 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "$ref": "#/definitions/Ext"
+    },
+    "Ext": {
+      "type": "object",
+      "properties": {
+        "entryPagePath": {
+          "type": "string",
+          "description": "小程序默认启动首页\n\n指定小程序的默认启动路径（首页），常见情景是从微信聊天列表页下拉启动、小程序列表启动等。 如果不填，将默认为 pages 列表的第一项。不支持带页面路径参数。"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "页面路径列表\n\n用于指定小程序由哪些页面组成，每一项都对应一个页面的 路径（含文件名） 信息。 文件名不需要写文件后缀，框架会自动去寻找对应位置的 `.json`, `.js`, `.wxml`, `.wxss` 四个文件进行处理。 未指定 entryPagePath 时，数组的第一项代表小程序的初始页面（首页）。\n\n**小程序中新增/减少页面，都需要对 pages 数组进行修改。**"
+        },
+        "window": {
+          "$ref": "#/definitions/IWindow",
+          "description": "全局的默认窗口表现\n\n用于设置小程序的状态栏、导航条、标题、窗口背景色。"
+        },
+        "networkTimeout": {
+          "$ref": "#/definitions/INetworkTimeout",
+          "description": "网络超时时间\n\n各类网络请求的超时时间，单位均为毫秒。"
+        },
+        "debug": {
+          "type": "boolean",
+          "description": "是否开启 debug 模式，默认关闭\n\n可以在开发者工具中开启 `debug` 模式，在开发者工具的控制台面板， 调试信息以 `info` 的形式给出，其信息有 Page 的注册，页面路由，数据更新，事件触发等。 可以帮助开发者快速定位一些常见的问题。",
+          "default": false
+        },
+        "functionalPages": {
+          "type": "boolean",
+          "description": "是否启用插件功能页，默认关闭\n\n插件所有者小程序需要设置这一项来启用 [插件功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages.html)\n\n注：基础库 2.1.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": false
+        },
+        "subpackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISubpackages"
+          },
+          "description": "分包结构配置\n\n启用 [分包加载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html) 时，声明项目分包结构\n\n写成 `subPackages` 也支持。\n\n注：微信客户端 6.6.0 ，基础库 1.7.3 及以上版本支持"
+        },
+        "subPackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISubpackages"
+          },
+          "description": "分包结构配置\n\n启用 [分包加载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html) 时，声明项目分包结构\n\n写成 `subpackages` 也支持。\n\n注：微信客户端 6.6.0 ，基础库 1.7.3 及以上版本支持"
+        },
+        "workers": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/IWorkers"
+            }
+          ],
+          "description": "`Worker` 代码放置的目录\n\n使用 Worker 处理多线程任务时，设置 `Worker` 代码放置的目录\n\n从基础库 v2.27.3 开始支持将 worker 代码打包为一个分包。\n\n注：基础库 1.9.90 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "requiredBackgroundModes": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ERequiredBackgroundModes"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "description": "需要在后台使用的能力，如「音乐播放」\n\n申明需要后台运行的能力，类型为数组。目前支持以下项目：\n- `\"audio\"` 后台音乐播放\n- `\"location\"` 后台定位\n\n注：微信客户端 6.7.2 及以上版本支持\n\n注：在此处申明了后台运行的接口，开发版和体验版上可以直接生效，正式版还需通过审核。",
+          "uniqueItems": true
+        },
+        "requiredPrivateInfos": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ERequiredPrivateInfos"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "description": "调用的地理位置相关隐私接口\n\n自 2022 年 7 月 14 日后发布的小程序，使用以下8个地理位置相关接口时， 需要声明该字段，否则将无法正常使用。2022 年 7 月 14 日前发布的小程序不受影响。 申明需要使用的地理位置相关接口，类型为数组。目前支持以下项目：\n- [getFuzzyLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getFuzzyLocation.html): 获取模糊地理位置\n- [getLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html): 获取精确地理位置\n- [onLocationChange](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.onLocationChange.html): 监听实时地理位置变化事件\n- [startLocationUpdate](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdate.html): 接收位置消息（前台）\n- [startLocationUpdateBackground](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdateBackground.html): 接收位置消息（前后台）\n- [chooseLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.chooseLocation.html): 打开地图选择位置\n- [choosePoi](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.choosePoi.html): 打开POI列表选择位置\n- [chooseAddress](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/address/wx.chooseAddress.html): 获取用户地址信息\n\n注：若使用以上接口，均需在小程序管理后台，[「开发」-「开发管理」-「接口设置」](https://mp.weixin.qq.com/wxamp/categoryapi/index?token=1033339147&lang=zh_CN) 中自助开通该接口权限。"
+        },
+        "plugins": {
+          "$ref": "#/definitions/plugins",
+          "description": "使用到的插件\n\n声明小程序需要使用的 [插件](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/using.html)。\n\n注：基础库 1.9.6 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "preloadRule": {
+          "$ref": "#/definitions/preloadRule",
+          "description": "分包预下载规则\n\n声明 [分包预下载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/preload.html) 的规则。\n\n开发者可以通过配置，在进入小程序某个页面时，由框架自动预下载可能需要的分包，提升进入后续分包页面时的启动速度。对于独立分包，也可以预下载主包。\n\n注：基础库 2.3.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "resizable": {
+          "type": "boolean",
+          "description": "PC 小程序是否支持用户任意改变窗口大小（包括最大化窗口）；iPad 小程序是否支持屏幕旋转。默认关闭\n\n在 iPad 上运行的小程序可以设置支持 [屏幕旋转](https://developers.weixin.qq.com/miniprogram/dev/framework/view/resizable.html)。\n\n在 PC 上运行的小程序，用户可以按照任意比例拖动窗口大小，也可以在小程序菜单中最大化窗口\n\n注：基础库 2.3.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": false
+        },
+        "usingComponents": {
+          "$ref": "#/definitions/IUsingComponents",
+          "description": "全局 [自定义组件](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/) 配置\n\n在 app.json 中声明的自定义组件视为全局自定义组件，在小程序内的页面或自定义组件中可以直接使用而无需再声明。\n\n*建议仅在此声明几乎所有页面都会用到的自定义组件。*\n\n注1：全局自定义组件会视为被所有页面依赖，会在所有页面启动时进行初始化， 影响启动性能且会占用主包大小。只被个别页面或分包引用的自定义组件应尽量在页面配置中声明。\n\n注2：在全局声明使用率低的自定义组件会大幅影响 [按需注入](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html) 的效果。\n\n注3：开发者工具 1.02.1810190 及以上版本支持"
+        },
+        "permission": {
+          "$ref": "#/definitions/IPermission",
+          "description": "小程序 [接口权限](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/authorize.html) 相关设置\n\n注：微信客户端 7.0.0 及以上版本支持"
+        },
+        "sitemapLocation": {
+          "type": "string",
+          "description": "指明 [sitemap.json](https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/sitemap.html) 的位置； 默认为 'sitemap.json' 即在 app.json 同级目录下名字的 `sitemap.json` 文件",
+          "default": "sitemap.json"
+        },
+        "style": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "指定使用升级后的weui样式\n\n微信客户端 7.0 开始，UI 界面进行了大改版。 小程序也进行了基础组件的样式升级。 app.json 中配置 `\"style\": \"v2\"` 可表明启用新版的组件样式。 本次改动涉及的组件有 `button` `icon` `radio` `checkbox` `switch` `slider。`\n\n注：基础库 2.8.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "useExtendedLib": {
+          "$ref": "#/definitions/IUseExtendedLib",
+          "description": "指定需要引用的扩展库\n\n指定需要引用的扩展库。目前支持以下项目：\n\n- `\"kbone\"`: [多端开发框架](https://developers.weixin.qq.com/miniprogram/dev/extended/kbone/)\n\n- `\"weui\"`: [WeUI 组件库](https://developers.weixin.qq.com/miniprogram/dev/extended/weui/)\n\n指定后，相当于引入了对应扩展库相关的最新版本的 npm 包，同时也不占用小程序的包体积。rc工具版本支持分包引用。\n\n注：基础库 2.2.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "entranceDeclare": {
+          "$ref": "#/definitions/IEntranceDeclare",
+          "description": "微信消息用小程序打开\n\n聊天位置消息用打车类小程序打开，[详情参考](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/location-message.html)。\n\n注：微信客户端 7.0.9 及以上版本支持，iOS 暂不支持"
+        },
+        "darkmode": {
+          "type": "boolean",
+          "description": "小程序支持 DarkMode\n\n微信iOS客户端 7.0.12 版本、Android客户端 7.0.13 版本正式支持 DarkMode， 可通过配置 `\"darkmode\": true` 表示当前小程序可适配 DarkMode， 所有基础组件均会根据系统主题展示不同的默认样式， navigation bar 和 tab bar 也会根据开发者的配置自动切换。\n\n配置后，请根据 [DarkMode 适配指南](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/darkmode.html) 自行完成基础样式以外的适配工作。\n\n注：开发者工具 1.03.2004271 及以上版本支持，基础库 2.11.0 及以上版本支持"
+        },
+        "themeLocation": {
+          "type": "string",
+          "description": "自定义 [theme.json](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/darkmode.html#%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-theme-json) 的路径，当配置 `\"darkmode\":true` 时，当前配置文件为必填项。\n\n注：开发者工具 1.03.2004271 及以上版本支持"
+        },
+        "lazyCodeLoading": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ELazyCodeLoading"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "配置自定义组件代码按需注入\n\n目前仅支持值 `requiredComponents`，代表开启小程序[「按需注入」](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html#%E6%8C%89%E9%9C%80%E6%B3%A8%E5%85%A5)特性。\n\n注：基础库 2.11.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "singlePage": {
+          "$ref": "#/definitions/ISinglePage",
+          "description": "单页模式相关配置\n\n注：基础库 2.11.3 及以上版本支持，目前 [分享到朋友圈 (Beta)](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/share/share-timeline.html) 后打开会进入单页模式"
+        },
+        "supportedMaterials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISupportedMaterials"
+          },
+          "description": "[聊天素材小程序打开](https://developers.weixin.qq.com/miniprogram/dev/framework/material/support_material.html) 相关配置\n\n注：基础库 2.14.3 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "serviceProviderTicket": {
+          "type": "string",
+          "description": "[定制化型服务商](https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/operation/thirdparty/customized_service_platform_guidelines.html) 票据"
+        },
+        "embeddedAppIdList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "半屏小程序 appId\n\n指定小程序可通过 [wx.openEmbeddedMiniProgram](https://developers.weixin.qq.com/miniprogram/dev/api/navigate/wx.openEmbeddedMiniProgram.html) 打开的小程序名单。\n\n注：基础库 2.20.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "halfPage": {
+          "$ref": "#/definitions/IHalfPage",
+          "description": "视频号直播半屏场景设置\n\n注：基础库 2.18.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "debugOptions": {
+          "$ref": "#/definitions/IDebugOptions",
+          "description": "调试相关配置\n\n注：基础库 2.22.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "enablePassiveEvent": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IEnablePassiveEvent"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "description": "touch 事件监听是否为 passive\n\n`touch` 相关事件默认的 `passive` 为 `false`。 如果小程序不使用 `catchtouch*` 事件时，可以通过这个选项将 `passive` 置为 `true`， 以提高滚动性能。具体原理可参考 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners) 。\n\n可以直接设置这个选项为 `true`，也可以分别控制某个事件。\n\n注：基础库 2.24.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "resolveAlias": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "自定义模块映射规则\n\n注意: 目前使用该能力的时候，需要在工具上关闭上传代码保护功能。\n\n使用 `resolveAlias` 配置项用来自定义模块路径的映射规则。 配置了之后，会对 `require` 里的模块路径进行规则匹配并映射成配置的路径。 如果命中多条映射规则，则取最长的命中规则。\n\n```json \"resolveAlias\": {   \"~/*\": \"/*\",   \"~/origin/*\": \"origin/*\",   \"@utils/*\": \"utils/*\",   \"subBUtils/*\": \"subpackageB/utils/*\" } ```\n\n`resolveAlias` 进行的是路径匹配，其中的 key 和 value 须以 `/*` 结尾。\n\n如果在 project.config.json 中指定了 miniprogramRoot， 则 `/*` 指代的根目录是 miniprogramRoot 对应的路径，而不是开发者工具项目的根目录"
+        },
+        "renderer": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ERenderer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "指定小程序全局的默认渲染后端。\n\n可选值：`webview` , [`skyline`](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/introduction.html)\n\n注：基础库 2.30.4 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "webview"
+        },
+        "rendererOptions": {
+          "$ref": "#/definitions/IRendererOptions",
+          "description": "小程序渲染后端的相关配置选项\n\n注：基础库 2.31.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "componentFramework": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EComponentFramework"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "组件框架，详见 [相关文档](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html)\n\n注：基础库 2.30.4 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "exparser"
+        },
+        "static": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IAppJSONStaticConfig"
+          }
+        },
+        "mini-ios": {
+          "$ref": "#/definitions/App"
+        },
+        "mini-android": {
+          "$ref": "#/definitions/App"
+        },
+        "mini-weixin": {
+          "$ref": "#/definitions/App"
+        },
+        "__warning__": {
+          "type": "string"
+        },
+        "componentPlaceholder": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "mimeTypeDeclarations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "displayMode": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EDisplayMode"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "frameset": {
+          "type": "boolean"
+        },
+        "cloud": {
+          "type": "boolean"
+        },
+        "cloudVersion": {
+          "type": "string"
+        },
+        "openDataContext": {
+          "type": "string"
+        },
+        "openLocationPagePath": {
+          "type": "string"
+        },
+        "requireBackgroundModes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "extEnable": {
+          "type": "boolean",
+          "description": "配置 ext.json 是否生效\n\n用于规定当前的 `ext.json` 文件是否生效，开发者可以通过修改这个字段来开启和关闭 `extAppid` 的结合开发。"
+        },
+        "extAppid": {
+          "type": "string",
+          "description": "配置 extAppid\n\n`extAppid` 是授权调试的 AppID ，例如开发者在此处填写的是 `wxf9c4501a76931b33` 那么在 `extEnable` 为真的情况下，后续的开发逻辑都会基于 `wxf9c4501a76931b33` 来运行。"
+        },
+        "ext": {
+          "type": "object",
+          "description": "开发自定义的数据字段\n\n`ext` 字段是开发自定义的数据字段，在小程序中可以通过  [`wx.getExtConfigSync`](https://developers.weixin.qq.com/miniprogram/dev/api/ext/wx.getExtConfigSync.html) 或者 [`wx.getExtConfig`](https://developers.weixin.qq.com/miniprogram/dev/api/ext/wx.getExtConfig.html) 获取到这些配置信息。"
+        },
+        "extPages": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Page"
+          },
+          "description": "单独设置每个页面的 json\n\n`extPages` 是一个对象，对象中的每个 `key` 应该是该小程序模板 `app.json` 中定义的页面， 每个 `key` 对应的 `value` 是 page.json 中所规定的各项配置。当开发者设置这个配置以后， 小程序框架会对应的修改相对应的 `page` 的配置信息。"
+        },
+        "directCommit": {
+          "type": "boolean",
+          "description": "是否直接提交到待审核列表\n\n用于规定当前的上传操作是否是直接上传到 `extAppid` 的审核列表中。\n\n当 `directCommit` 为 `true` 真时，开发者在工具中的上传操作， 会直接上传到对应的 extAppid 的审核列表， 第三方平台只需要调用 `https://api.weixin.qq.com/wxa/submit_audit?access_token=TOKEN` 即可以提交审核。 更多请参考 [第三方平台文档](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1489140610_Uavc4&token=&lang=zh_CN)\n\n当 `directCommit` 为 `false` 或者没有定义时， 开发者在工具中的上传操作，会直接上传到对应的草稿箱中。"
+        },
+        "tabBar": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string",
+              "description": "tab 上的文字默认颜色，仅支持十六进制颜色"
+            },
+            "selectedColor": {
+              "type": "string",
+              "description": "tab 上的文字选中时的颜色，仅支持十六进制颜色"
+            },
+            "backgroundColor": {
+              "type": "string",
+              "description": "tab 的背景色，仅支持十六进制颜色"
+            },
+            "borderStyle": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/EBorderStyle"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "description": "tabbar 上边框的颜色， 仅支持 `black` / `white`",
+              "default": "black"
+            },
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ITabBarListItem"
+              },
+              "description": "tab 的列表，最少 2 个、最多 5 个 tab， tab 按数组的顺序排序，每个项都是一个对象。",
+              "minItems": 2,
+              "maxItems": 5
+            },
+            "position": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/EPosition"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "description": "tabBar 的位置，仅支持 `bottom` / `top`",
+              "default": "bottom"
+            },
+            "custom": {
+              "type": "boolean",
+              "description": "自定义 tabBar，见 [详情](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html)\n\n最低版本：2.5.0",
+              "default": false
+            }
+          },
+          "description": "底部 `tab` 栏的表现\n\n如果小程序是一个多 tab 应用（客户端窗口的底部或顶部有 tab 栏可以切换页面）， 可以通过 tabBar 配置项指定 tab 栏的表现，以及 tab 切换时显示的对应页面。"
+        }
+      },
+      "required": [
+        "extEnable",
+        "extAppid"
+      ],
+      "description": "第三方平台开发配置\n\n为了方便第三方平台的开发者引入 `extAppid` 的开发调试工作，需要引入 `ext.json` 的概念。\n\n`ext.json` 是一个配置文件，放置在小程序项目的根目录下。\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/devtools/ext.html>\n\n微信官方 schema：\n\n<https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/ext.schema.json>"
+    },
+    "IWindow": {
+      "type": "object",
+      "properties": {
+        "navigationBarBackgroundColor": {
+          "type": "string",
+          "description": "导航栏背景颜色，如 #000000",
+          "default": "#000000"
+        },
+        "navigationBarTextStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ENavigationBarTextStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "导航栏标题颜色，仅支持 `black` / `white`",
+          "default": "white"
+        },
+        "navigationBarTitleText": {
+          "type": "string",
+          "description": "导航栏标题文字内容"
+        },
+        "navigationStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ENavigationStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "导航栏样式，仅支持以下值：\n\n- `\"default\"` 默认样式\n\n- `\"custom\"` 自定义导航栏，只保留右上角胶囊按钮。\n\n注：关于navigationStyle\n- iOS/Android 客户端 7.0.0 以下版本，`navigationStyle` 只在 `app.json` 中生效。\n- iOS/Android 客户端 6.7.2 版本开始，`navigationStyle: \"custom\"` 对 [web-view](https://developers.weixin.qq.com/miniprogram/dev/component/web-view.html) 组件无效\n- 开启 `custom` 后，低版本客户端需要做好兼容。开发者工具基础库版本切到 1.7.0（不代表最低版本，只供调试用）可方便切到旧视觉\n- Windows 客户端 3.0 及以上版本，为了给用户提供更符合桌面软件的使用体验，统一了小程序窗口的导航栏，`navigationStyle: \"custom\"` 不再生效",
+          "default": "default"
+        },
+        "homeButton": {
+          "type": "boolean",
+          "description": "在非首页、非页面栈最底层页面或非tabbar内页面中的导航栏展示home键\n\n最低版本：微信客户端 8.0.24"
+        },
+        "backgroundColor": {
+          "type": "string",
+          "description": "窗口的背景色",
+          "default": "#ffffff"
+        },
+        "backgroundTextStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EBackgroundTextStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "下拉 loading 的样式，仅支持 `dark` / `light`",
+          "default": "dark"
+        },
+        "backgroundColorTop": {
+          "type": "string",
+          "description": "顶部窗口的背景色，仅 iOS 支持\n\n最低版本：微信客户端 6.5.16",
+          "default": "#ffffff"
+        },
+        "backgroundColorBottom": {
+          "type": "string",
+          "description": "底部窗口的背景色，仅 iOS 支持\n\n最低版本：微信客户端 6.5.16",
+          "default": "#ffffff"
+        },
+        "enablePullDownRefresh": {
+          "type": "boolean",
+          "description": "是否开启全局的下拉刷新。\n\n详见 [Page.onPullDownRefresh](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onpulldownrefresh)",
+          "default": false
+        },
+        "onReachBottomDistance": {
+          "type": "number",
+          "description": "页面上拉触底事件触发时距页面底部距离，单位为 px。\n\n详见 [Page.onReachBottom](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onreachbottom)",
+          "default": 50
+        },
+        "pageOrientation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EPageOrientation"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "屏幕旋转设置，支持 `auto` / `portrait` / `landscape`\n\n详见 [响应显示区域变化](https://developers.weixin.qq.com/miniprogram/dev/framework/view/resizable.html)\n\n最低版本：[2.4.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) (auto) / 2.5.0 (landscape)",
+          "default": "portrait"
+        },
+        "restartStrategy": {
+          "$ref": "#/definitions/ERestartStrategy",
+          "description": "[重新启动策略](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/operating-mechanism.html#_2-1-%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E7%AD%96%E7%95%A5) 配置\n\n- `\"homePage\"` （默认值）如果从这个页面退出小程序，下次将从首页冷启动\n\n- `\"homePageAndLatestPage\"` 如果从这个页面退出小程序，下次冷启动后立刻加载这个页面，页面的参数保持不变（不可用于 tab 页）\n\n最低版本：[2.8.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "homePage"
+        },
+        "initialRenderingCache": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EInitialRenderingCache"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "页面 [初始渲染缓存](https://developers.weixin.qq.com/miniprogram/dev/framework/view/initial-rendering-cache.html) 配置，支持 `static` / `dynamic`\n\n最低版本：[2.11.1](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "visualEffectInBackground": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EVisualEffectInBackground"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "切入系统后台时，隐藏页面内容，保护用户隐私。支持 `hidden` / `none`\n\n最低版本：[2.15.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "none"
+        },
+        "handleWebviewPreload": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EHandleWebviewPreload"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "控制 [预加载下个页面的时机](https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips/runtime_nav.html#_2-4-%E6%8E%A7%E5%88%B6%E9%A2%84%E5%8A%A0%E8%BD%BD%E4%B8%8B%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%97%B6%E6%9C%BA)。 支持 `static` / `manual` / `auto`\n\n最低版本：[2.15.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        }
+      }
+    },
+    "ENavigationBarTextStyle": {
+      "type": "string",
+      "enum": [
+        "black",
+        "white"
+      ]
+    },
+    "ENavigationStyle": {
+      "type": "string",
+      "enum": [
+        "default",
+        "custom"
+      ]
+    },
+    "EBackgroundTextStyle": {
+      "type": "string",
+      "enum": [
+        "dark",
+        "light"
+      ]
+    },
+    "EPageOrientation": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "portrait",
+        "landscape"
+      ]
+    },
+    "ERestartStrategy": {
+      "type": "string",
+      "enum": [
+        "homePage",
+        "homePageAndLatestPage"
+      ]
+    },
+    "EInitialRenderingCache": {
+      "type": "string",
+      "enum": [
+        "static",
+        "dynamic"
+      ]
+    },
+    "EVisualEffectInBackground": {
+      "type": "string",
+      "enum": [
+        "hidden",
+        "none"
+      ]
+    },
+    "EHandleWebviewPreload": {
+      "type": "string",
+      "enum": [
+        "static",
+        "manual",
+        "auto"
+      ]
+    },
+    "INetworkTimeout": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "number",
+          "description": "[wx.request](https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        },
+        "connectSocket": {
+          "type": "number",
+          "description": "[wx.connectSocket](https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.connectSocket.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        },
+        "uploadFile": {
+          "type": "number",
+          "description": "[wx.uploadFile](https://developers.weixin.qq.com/miniprogram/dev/api/network/upload/wx.uploadFile.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        },
+        "downloadFile": {
+          "type": "number",
+          "description": "[wx.downloadFile](https://developers.weixin.qq.com/miniprogram/dev/api/network/download/wx.downloadFile.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        }
+      }
+    },
+    "ISubpackages": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "type": "string",
+          "description": "分包根目录"
+        },
+        "name": {
+          "type": "string",
+          "description": "分包别名，[分包预下载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/preload.html) 时可以使用"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "分包页面路径，相对于分包根目录",
+          "uniqueItems": true
+        },
+        "independent": {
+          "type": "boolean",
+          "description": "分包是否是 [独立分包](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/independent.html)"
+        },
+        "plugins": {
+          "$ref": "#/definitions/plugins",
+          "description": "分包内引入插件 [详见](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/using.html#%E5%9C%A8%E5%88%86%E5%8C%85%E5%86%85%E5%BC%95%E5%85%A5%E6%8F%92%E4%BB%B6%E4%BB%A3%E7%A0%81%E5%8C%85)"
+        }
+      },
+      "required": [
+        "root",
+        "pages"
+      ]
+    },
+    "plugins": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/IPlugin",
+        "description": "插件引用名，由使用者自定义，无需和插件开发者保持一致或与开发者协调。"
+      }
+    },
+    "IPlugin": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "插件的版本号"
+        },
+        "provider": {
+          "type": "string",
+          "description": "插件的 appid"
+        }
+      },
+      "required": [
+        "version",
+        "provider"
+      ]
+    },
+    "IWorkers": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "`Worker` 代码放置的目录"
+        },
+        "isSubpackage": {
+          "type": "boolean",
+          "description": "true 表示把 worker 打包为分包。默认 `false`。\n\n填 `false` 时等同于 `{ \"workers\": \"workers\" }`",
+          "default": false
+        }
+      },
+      "required": [
+        "path",
+        "isSubpackage"
+      ]
+    },
+    "ERequiredBackgroundModes": {
+      "type": "string",
+      "enum": [
+        "audio",
+        "location"
+      ]
+    },
+    "ERequiredPrivateInfos": {
+      "type": "string",
+      "enum": [
+        "getFuzzyLocation",
+        "getLocation",
+        "onLocationChange",
+        "startLocationUpdate",
+        "startLocationUpdateBackground",
+        "chooseLocation",
+        "choosePoi",
+        "chooseAddress"
+      ]
+    },
+    "preloadRule": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/IPreloadRule",
+        "description": "预下载配置的页面路径"
+      }
+    },
+    "IPreloadRule": {
+      "type": "object",
+      "properties": {
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "进入页面后预下载分包的 root 或 name。\n\n`__APP__` 表示主包。"
+        },
+        "network": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ENetwork"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "在指定网络下预下载，可选值为：\n\n- `\"all\"`: 不限网络\n\n- `\"wifi\"`: 仅wifi下预下载",
+          "default": "wifi"
+        }
+      },
+      "required": [
+        "packages"
+      ]
+    },
+    "ENetwork": {
+      "type": "string",
+      "enum": [
+        "all",
+        "wifi"
+      ]
+    },
+    "IUsingComponents": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "description": "自定义组件的标签名和对应的自定义组件文件路径"
+      }
+    },
+    "IPermission": {
+      "type": "object",
+      "properties": {
+        "scope.userLocation": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "精确地理位置\n\n对应接口：\n- [wx.getLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html)\n- [wx.startLocationUpdate](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdate.html)"
+        },
+        "scope.userFuzzyLocation": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "模糊地理位置\n\n对应接口：\n- [wx.getFuzzyLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getFuzzyLocation.html)"
+        },
+        "scope.userLocationBackground": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "后台定位\n\n对应接口：\n- [wx.startLocationUpdateBackground](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdateBackground.html)"
+        },
+        "scope.record": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "麦克风\n\n对应接口：\n- [live-pusher组件](https://developers.weixin.qq.com/miniprogram/dev/component/live-pusher.html)\n- [wx.startRecord](https://developers.weixin.qq.com/miniprogram/dev/api/media/recorder/wx.startRecord.html)\n- [wx.joinVoIPChat](https://developers.weixin.qq.com/miniprogram/dev/api/media/voip/wx.joinVoIPChat.html)\n- [RecorderManager.start](https://developers.weixin.qq.com/miniprogram/dev/api/media/recorder/RecorderManager.start.html)"
+        },
+        "scope.camera": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "摄像头\n\n对应接口：\n- [camera组件](https://developers.weixin.qq.com/miniprogram/dev/component/camera.html)\n- [live-pusher组件](https://developers.weixin.qq.com/miniprogram/dev/component/live-pusher.html)\n- [wx.createVKSession](https://developers.weixin.qq.com/miniprogram/dev/api/ai/visionkit/wx.createVKSession.html)"
+        },
+        "scope.bluetooth": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "蓝牙\n\n对应接口：\n- [wx.openBluetoothAdapter](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth/wx.openBluetoothAdapter.html)\n- [wx.createBLEPeripheralServer](https://developers.weixin.qq.com/miniprogram/dev/api/device/bluetooth-peripheral/wx.createBLEPeripheralServer.html)"
+        },
+        "scope.writePhotosAlbum": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "添加到相册\n\n对应接口：\n- [wx.saveImageToPhotosAlbum](https://developers.weixin.qq.com/miniprogram/dev/api/media/image/wx.saveImageToPhotosAlbum.html)\n- [wx.saveVideoToPhotosAlbum](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/wx.saveVideoToPhotosAlbum.html)"
+        },
+        "scope.addPhoneContact": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "添加到联系人\n\n对应接口：\n- [wx.addPhoneContact](https://developers.weixin.qq.com/miniprogram/dev/api/device/contact/wx.addPhoneContact.html)"
+        },
+        "scope.addPhoneCalendar": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "添加到日历\n\n对应接口：\n- [wx.addPhoneRepeatCalendar](https://developers.weixin.qq.com/miniprogram/dev/api/device/calendar/wx.addPhoneRepeatCalendar.html)\n- [wx.addPhoneCalendar](https://developers.weixin.qq.com/miniprogram/dev/api/device/calendar/wx.addPhoneCalendar.html)"
+        },
+        "scope.werun": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "微信运动步数\n\n对应接口：\n- [wx.getWeRunData](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/werun/wx.getWeRunData.html)"
+        },
+        "scope.address": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "通讯地址（已取消授权，可以直接调用对应接口）\n\n对应接口：\n- [wx.chooseAddress](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/address/wx.chooseAddress.html)"
+        },
+        "scope.invoiceTitle": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "发票抬头（已取消授权，可以直接调用对应接口）\n\n对应接口：\n- [wx.chooseInvoiceTitle](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/invoice/wx.chooseInvoiceTitle.html)"
+        },
+        "scope.invoice": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "获取发票（已取消授权，可以直接调用对应接口）\n\n对应接口：\n- [wx.chooseInvoice](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/invoice/wx.chooseInvoice.html)"
+        },
+        "scope.userInfo": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "用户信息（小程序已回收，请使用头像昵称填写，小游戏可继续调用）\n\n对应接口：\n- [wx.getUserInfo](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/wx.getUserInfo.html)"
+        }
+      }
+    },
+    "PermissionObject": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string",
+          "description": "小程序获取权限时展示的接口用途说明。最长 30 个字符"
+        }
+      },
+      "required": [
+        "desc"
+      ]
+    },
+    "EStyle": {
+      "type": "string",
+      "const": "v2"
+    },
+    "IUseExtendedLib": {
+      "type": "object",
+      "properties": {
+        "kbone": {
+          "type": "boolean",
+          "description": "[多端开发框架](https://developers.weixin.qq.com/miniprogram/dev/extended/kbone/)"
+        },
+        "weui": {
+          "type": "boolean",
+          "description": "[WeUI 组件库](https://developers.weixin.qq.com/miniprogram/dev/extended/weui/)"
+        }
+      }
+    },
+    "IEntranceDeclare": {
+      "type": "object",
+      "properties": {
+        "locationMessage": {
+          "$ref": "#/definitions/ILocationMessage",
+          "description": "聊天位置消息"
+        }
+      }
+    },
+    "ILocationMessage": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "路径"
+        },
+        "query": {
+          "type": "string",
+          "description": "参数"
+        }
+      },
+      "required": [
+        "path",
+        "query"
+      ]
+    },
+    "ELazyCodeLoading": {
+      "type": "string",
+      "const": "requiredComponents"
+    },
+    "ISinglePage": {
+      "type": "object",
+      "properties": {
+        "navigationBarFit": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ENavigationBarFit"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "导航栏与页面的相交状态， 值为 float 时表示导航栏浮在页面上，与页面相交； 值为 squeezed 时表示页面被导航栏挤压，与页面不相交"
+        }
+      }
+    },
+    "ENavigationBarFit": {
+      "type": "string",
+      "enum": [
+        "float",
+        "squeezed"
+      ]
+    },
+    "ISupportedMaterials": {
+      "type": "object",
+      "properties": {
+        "materialType": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/MimeType"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "支持文件类型的 `MimeType` ，音频，视频支持二级配置的通配模式，例如: `video/*`。 通配模式配置和精确类型配置同时存在时，则优先使用精确类型的配置 (例如` video/*` 和 `video/mp4` 同时存在，会优先使用 `video/mp4` 的配置)。"
+        },
+        "name": {
+          "type": "string",
+          "description": "开发者配置的标题，在素材页面会展示该标题，配置中必须包含 `${nickname}`, 代码包编译后会自动替换为小程序名称，如果声明了简称则会优先使用简称。 除去 `${nickname}` 其余字数不得超过6个。"
+        },
+        "desc": {
+          "type": "string",
+          "description": "用途描述，会在推荐列表展示该描述，限定字数不超过22个。"
+        },
+        "path": {
+          "type": "string",
+          "description": "在该场景下打开小程序时跳转页面"
+        }
+      },
+      "required": [
+        "materialType",
+        "name",
+        "desc",
+        "path"
+      ]
+    },
+    "MimeType": {
+      "type": "string",
+      "enum": [
+        "video/*",
+        "audio/*",
+        "image/*",
+        "text/html",
+        "text/plain",
+        "application/*",
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.ms-word.document.macroEnabled.12",
+        "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel.sheet.macroEnabled.12",
+        "application/vnd.ms-powerpoint",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/zip",
+        "application/vnd.rar",
+        "application/x-7z-compressed",
+        "application/x-photoshop",
+        "application/acad",
+        "application/x-cdr",
+        "application/dxf",
+        "application/step",
+        "application/rtf",
+        "application/postscript"
+      ]
+    },
+    "IHalfPage": {
+      "type": "object",
+      "properties": {
+        "firstPageNavigationStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EFirstPageNavigationStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "视频号直播打开的第一个页面的全屏状态使用自定义顶部，支持 `default` / `custom`"
+        }
+      }
+    },
+    "EFirstPageNavigationStyle": {
+      "type": "string",
+      "enum": [
+        "default",
+        "custom"
+      ]
+    },
+    "IDebugOptions": {
+      "type": "object",
+      "properties": {
+        "enableFPSPanel": {
+          "type": [
+            "boolean",
+            "string"
+          ],
+          "description": "是否开启 [FPS 面板](https://developers.weixin.qq.com/miniprogram/dev/framework/performance/fps_panel.html)",
+          "default": false
+        }
+      }
+    },
+    "IEnablePassiveEvent": {
+      "type": "object",
+      "properties": {
+        "touchstart": {
+          "type": "boolean",
+          "description": "是否设置 touchstart 事件为 passive",
+          "default": false
+        },
+        "touchmove": {
+          "type": "boolean",
+          "description": "是否设置 touchmove 事件为 passive",
+          "default": false
+        },
+        "wheel": {
+          "type": "boolean",
+          "description": "是否设置 wheel 事件为 passive",
+          "default": false
+        }
+      }
+    },
+    "ERenderer": {
+      "type": "string",
+      "enum": [
+        "webview",
+        "skyline"
+      ]
+    },
+    "IRendererOptions": {
+      "type": "object",
+      "properties": {
+        "skyline": {
+          "$ref": "#/definitions/ISkylineOptions",
+          "description": "Skyline 渲染引擎的相关配置项"
+        }
+      }
+    },
+    "ISkylineOptions": {
+      "type": "object",
+      "properties": {
+        "defaultDisplayBlock": {
+          "type": "boolean",
+          "description": "[开启默认Block布局](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/wxss.html#%E5%BC%80%E5%90%AF%E9%BB%98%E8%AE%A4Block%E5%B8%83%E5%B1%80)",
+          "default": false
+        },
+        "disableABTest": {
+          "type": "boolean",
+          "description": "[关闭 Skyline AB 实验](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/migration/release.html#%E7%A8%B3%E5%AE%9A%E6%80%A7)",
+          "default": false
+        }
+      }
+    },
+    "EComponentFramework": {
+      "type": "string",
+      "enum": [
+        "exparser",
+        "glass-easel"
+      ]
+    },
+    "IAppJSONStaticConfig": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/EPlatforms"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "pattern",
+        "platforms"
+      ]
+    },
+    "EPlatforms": {
+      "type": "string",
+      "enum": [
+        "mini-android",
+        "mini-ios",
+        "mini-weixin"
+      ]
+    },
+    "App": {
+      "type": "object",
+      "properties": {
+        "entryPagePath": {
+          "type": "string",
+          "description": "小程序默认启动首页\n\n指定小程序的默认启动路径（首页），常见情景是从微信聊天列表页下拉启动、小程序列表启动等。 如果不填，将默认为 pages 列表的第一项。不支持带页面路径参数。"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "页面路径列表\n\n用于指定小程序由哪些页面组成，每一项都对应一个页面的 路径（含文件名） 信息。 文件名不需要写文件后缀，框架会自动去寻找对应位置的 `.json`, `.js`, `.wxml`, `.wxss` 四个文件进行处理。 未指定 entryPagePath 时，数组的第一项代表小程序的初始页面（首页）。\n\n**小程序中新增/减少页面，都需要对 pages 数组进行修改。**",
+          "uniqueItems": true
+        },
+        "window": {
+          "$ref": "#/definitions/IWindow",
+          "description": "全局的默认窗口表现\n\n用于设置小程序的状态栏、导航条、标题、窗口背景色。"
+        },
+        "tabBar": {
+          "$ref": "#/definitions/ITabBar",
+          "description": "底部 `tab` 栏的表现\n\n如果小程序是一个多 tab 应用（客户端窗口的底部或顶部有 tab 栏可以切换页面）， 可以通过 tabBar 配置项指定 tab 栏的表现，以及 tab 切换时显示的对应页面。"
+        },
+        "networkTimeout": {
+          "$ref": "#/definitions/INetworkTimeout",
+          "description": "网络超时时间\n\n各类网络请求的超时时间，单位均为毫秒。"
+        },
+        "debug": {
+          "type": "boolean",
+          "description": "是否开启 debug 模式，默认关闭\n\n可以在开发者工具中开启 `debug` 模式，在开发者工具的控制台面板， 调试信息以 `info` 的形式给出，其信息有 Page 的注册，页面路由，数据更新，事件触发等。 可以帮助开发者快速定位一些常见的问题。",
+          "default": false
+        },
+        "functionalPages": {
+          "type": "boolean",
+          "description": "是否启用插件功能页，默认关闭\n\n插件所有者小程序需要设置这一项来启用 [插件功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages.html)\n\n注：基础库 2.1.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": false
+        },
+        "subpackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISubpackages"
+          },
+          "description": "分包结构配置\n\n启用 [分包加载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html) 时，声明项目分包结构\n\n写成 `subPackages` 也支持。\n\n注：微信客户端 6.6.0 ，基础库 1.7.3 及以上版本支持"
+        },
+        "subPackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISubpackages"
+          },
+          "description": "分包结构配置\n\n启用 [分包加载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html) 时，声明项目分包结构\n\n写成 `subpackages` 也支持。\n\n注：微信客户端 6.6.0 ，基础库 1.7.3 及以上版本支持"
+        },
+        "workers": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/IWorkers"
+            }
+          ],
+          "description": "`Worker` 代码放置的目录\n\n使用 Worker 处理多线程任务时，设置 `Worker` 代码放置的目录\n\n从基础库 v2.27.3 开始支持将 worker 代码打包为一个分包。\n\n注：基础库 1.9.90 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "requiredBackgroundModes": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ERequiredBackgroundModes"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "description": "需要在后台使用的能力，如「音乐播放」\n\n申明需要后台运行的能力，类型为数组。目前支持以下项目：\n- `\"audio\"` 后台音乐播放\n- `\"location\"` 后台定位\n\n注：微信客户端 6.7.2 及以上版本支持\n\n注：在此处申明了后台运行的接口，开发版和体验版上可以直接生效，正式版还需通过审核。",
+          "uniqueItems": true
+        },
+        "requiredPrivateInfos": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ERequiredPrivateInfos"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "description": "调用的地理位置相关隐私接口\n\n自 2022 年 7 月 14 日后发布的小程序，使用以下8个地理位置相关接口时， 需要声明该字段，否则将无法正常使用。2022 年 7 月 14 日前发布的小程序不受影响。 申明需要使用的地理位置相关接口，类型为数组。目前支持以下项目：\n- [getFuzzyLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getFuzzyLocation.html): 获取模糊地理位置\n- [getLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html): 获取精确地理位置\n- [onLocationChange](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.onLocationChange.html): 监听实时地理位置变化事件\n- [startLocationUpdate](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdate.html): 接收位置消息（前台）\n- [startLocationUpdateBackground](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.startLocationUpdateBackground.html): 接收位置消息（前后台）\n- [chooseLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.chooseLocation.html): 打开地图选择位置\n- [choosePoi](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.choosePoi.html): 打开POI列表选择位置\n- [chooseAddress](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/address/wx.chooseAddress.html): 获取用户地址信息\n\n注：若使用以上接口，均需在小程序管理后台，[「开发」-「开发管理」-「接口设置」](https://mp.weixin.qq.com/wxamp/categoryapi/index?token=1033339147&lang=zh_CN) 中自助开通该接口权限。"
+        },
+        "plugins": {
+          "$ref": "#/definitions/plugins",
+          "description": "使用到的插件\n\n声明小程序需要使用的 [插件](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/using.html)。\n\n注：基础库 1.9.6 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "preloadRule": {
+          "$ref": "#/definitions/preloadRule",
+          "description": "分包预下载规则\n\n声明 [分包预下载](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/preload.html) 的规则。\n\n开发者可以通过配置，在进入小程序某个页面时，由框架自动预下载可能需要的分包，提升进入后续分包页面时的启动速度。对于独立分包，也可以预下载主包。\n\n注：基础库 2.3.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "resizable": {
+          "type": "boolean",
+          "description": "PC 小程序是否支持用户任意改变窗口大小（包括最大化窗口）；iPad 小程序是否支持屏幕旋转。默认关闭\n\n在 iPad 上运行的小程序可以设置支持 [屏幕旋转](https://developers.weixin.qq.com/miniprogram/dev/framework/view/resizable.html)。\n\n在 PC 上运行的小程序，用户可以按照任意比例拖动窗口大小，也可以在小程序菜单中最大化窗口\n\n注：基础库 2.3.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": false
+        },
+        "usingComponents": {
+          "$ref": "#/definitions/IUsingComponents",
+          "description": "全局 [自定义组件](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/) 配置\n\n在 app.json 中声明的自定义组件视为全局自定义组件，在小程序内的页面或自定义组件中可以直接使用而无需再声明。\n\n*建议仅在此声明几乎所有页面都会用到的自定义组件。*\n\n注1：全局自定义组件会视为被所有页面依赖，会在所有页面启动时进行初始化， 影响启动性能且会占用主包大小。只被个别页面或分包引用的自定义组件应尽量在页面配置中声明。\n\n注2：在全局声明使用率低的自定义组件会大幅影响 [按需注入](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html) 的效果。\n\n注3：开发者工具 1.02.1810190 及以上版本支持"
+        },
+        "permission": {
+          "$ref": "#/definitions/IPermission",
+          "description": "小程序 [接口权限](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/authorize.html) 相关设置\n\n注：微信客户端 7.0.0 及以上版本支持"
+        },
+        "sitemapLocation": {
+          "type": "string",
+          "description": "指明 [sitemap.json](https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/sitemap.html) 的位置； 默认为 'sitemap.json' 即在 app.json 同级目录下名字的 `sitemap.json` 文件",
+          "default": "sitemap.json"
+        },
+        "style": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "指定使用升级后的weui样式\n\n微信客户端 7.0 开始，UI 界面进行了大改版。 小程序也进行了基础组件的样式升级。 app.json 中配置 `\"style\": \"v2\"` 可表明启用新版的组件样式。 本次改动涉及的组件有 `button` `icon` `radio` `checkbox` `switch` `slider。`\n\n注：基础库 2.8.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "useExtendedLib": {
+          "$ref": "#/definitions/IUseExtendedLib",
+          "description": "指定需要引用的扩展库\n\n指定需要引用的扩展库。目前支持以下项目：\n\n- `\"kbone\"`: [多端开发框架](https://developers.weixin.qq.com/miniprogram/dev/extended/kbone/)\n\n- `\"weui\"`: [WeUI 组件库](https://developers.weixin.qq.com/miniprogram/dev/extended/weui/)\n\n指定后，相当于引入了对应扩展库相关的最新版本的 npm 包，同时也不占用小程序的包体积。rc工具版本支持分包引用。\n\n注：基础库 2.2.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "entranceDeclare": {
+          "$ref": "#/definitions/IEntranceDeclare",
+          "description": "微信消息用小程序打开\n\n聊天位置消息用打车类小程序打开，[详情参考](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/location-message.html)。\n\n注：微信客户端 7.0.9 及以上版本支持，iOS 暂不支持"
+        },
+        "darkmode": {
+          "type": "boolean",
+          "description": "小程序支持 DarkMode\n\n微信iOS客户端 7.0.12 版本、Android客户端 7.0.13 版本正式支持 DarkMode， 可通过配置 `\"darkmode\": true` 表示当前小程序可适配 DarkMode， 所有基础组件均会根据系统主题展示不同的默认样式， navigation bar 和 tab bar 也会根据开发者的配置自动切换。\n\n配置后，请根据 [DarkMode 适配指南](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/darkmode.html) 自行完成基础样式以外的适配工作。\n\n注：开发者工具 1.03.2004271 及以上版本支持，基础库 2.11.0 及以上版本支持"
+        },
+        "themeLocation": {
+          "type": "string",
+          "description": "自定义 [theme.json](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/darkmode.html#%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-theme-json) 的路径，当配置 `\"darkmode\":true` 时，当前配置文件为必填项。\n\n注：开发者工具 1.03.2004271 及以上版本支持"
+        },
+        "lazyCodeLoading": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ELazyCodeLoading"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "配置自定义组件代码按需注入\n\n目前仅支持值 `requiredComponents`，代表开启小程序[「按需注入」](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html#%E6%8C%89%E9%9C%80%E6%B3%A8%E5%85%A5)特性。\n\n注：基础库 2.11.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "singlePage": {
+          "$ref": "#/definitions/ISinglePage",
+          "description": "单页模式相关配置\n\n注：基础库 2.11.3 及以上版本支持，目前 [分享到朋友圈 (Beta)](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/share/share-timeline.html) 后打开会进入单页模式"
+        },
+        "supportedMaterials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISupportedMaterials"
+          },
+          "description": "[聊天素材小程序打开](https://developers.weixin.qq.com/miniprogram/dev/framework/material/support_material.html) 相关配置\n\n注：基础库 2.14.3 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "serviceProviderTicket": {
+          "type": "string",
+          "description": "[定制化型服务商](https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/operation/thirdparty/customized_service_platform_guidelines.html) 票据"
+        },
+        "embeddedAppIdList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "半屏小程序 appId\n\n指定小程序可通过 [wx.openEmbeddedMiniProgram](https://developers.weixin.qq.com/miniprogram/dev/api/navigate/wx.openEmbeddedMiniProgram.html) 打开的小程序名单。\n\n注：基础库 2.20.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "halfPage": {
+          "$ref": "#/definitions/IHalfPage",
+          "description": "视频号直播半屏场景设置\n\n注：基础库 2.18.0 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "debugOptions": {
+          "$ref": "#/definitions/IDebugOptions",
+          "description": "调试相关配置\n\n注：基础库 2.22.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "enablePassiveEvent": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IEnablePassiveEvent"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "description": "touch 事件监听是否为 passive\n\n`touch` 相关事件默认的 `passive` 为 `false`。 如果小程序不使用 `catchtouch*` 事件时，可以通过这个选项将 `passive` 置为 `true`， 以提高滚动性能。具体原理可参考 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners) 。\n\n可以直接设置这个选项为 `true`，也可以分别控制某个事件。\n\n注：基础库 2.24.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "resolveAlias": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "自定义模块映射规则\n\n注意: 目前使用该能力的时候，需要在工具上关闭上传代码保护功能。\n\n使用 `resolveAlias` 配置项用来自定义模块路径的映射规则。 配置了之后，会对 `require` 里的模块路径进行规则匹配并映射成配置的路径。 如果命中多条映射规则，则取最长的命中规则。\n\n```json \"resolveAlias\": {   \"~/*\": \"/*\",   \"~/origin/*\": \"origin/*\",   \"@utils/*\": \"utils/*\",   \"subBUtils/*\": \"subpackageB/utils/*\" } ```\n\n`resolveAlias` 进行的是路径匹配，其中的 key 和 value 须以 `/*` 结尾。\n\n如果在 project.config.json 中指定了 miniprogramRoot， 则 `/*` 指代的根目录是 miniprogramRoot 对应的路径，而不是开发者工具项目的根目录"
+        },
+        "renderer": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ERenderer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "指定小程序全局的默认渲染后端。\n\n可选值：`webview` , [`skyline`](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/introduction.html)\n\n注：基础库 2.30.4 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "webview"
+        },
+        "rendererOptions": {
+          "$ref": "#/definitions/IRendererOptions",
+          "description": "小程序渲染后端的相关配置选项\n\n注：基础库 2.31.1 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "componentFramework": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EComponentFramework"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "组件框架，详见 [相关文档](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html)\n\n注：基础库 2.30.4 开始支持，低版本需做 [兼容处理](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "exparser"
+        },
+        "static": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IAppJSONStaticConfig"
+          }
+        },
+        "mini-ios": {
+          "$ref": "#/definitions/App"
+        },
+        "mini-android": {
+          "$ref": "#/definitions/App"
+        },
+        "mini-weixin": {
+          "$ref": "#/definitions/App"
+        },
+        "__warning__": {
+          "type": "string"
+        },
+        "componentPlaceholder": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "mimeTypeDeclarations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "displayMode": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EDisplayMode"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "frameset": {
+          "type": "boolean"
+        },
+        "cloud": {
+          "type": "boolean"
+        },
+        "cloudVersion": {
+          "type": "string"
+        },
+        "openDataContext": {
+          "type": "string"
+        },
+        "openLocationPagePath": {
+          "type": "string"
+        },
+        "requireBackgroundModes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "pages",
+        "sitemapLocation"
+      ],
+      "description": "小程序全局配置\n\n小程序根目录下的 `app.json` 文件用来对微信小程序进行全局配置。\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html>\n\n微信官方 schema\n\n<https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/app.schema.json>"
+    },
+    "ITabBar": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string",
+          "description": "tab 上的文字默认颜色，仅支持十六进制颜色"
+        },
+        "selectedColor": {
+          "type": "string",
+          "description": "tab 上的文字选中时的颜色，仅支持十六进制颜色"
+        },
+        "backgroundColor": {
+          "type": "string",
+          "description": "tab 的背景色，仅支持十六进制颜色"
+        },
+        "borderStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EBorderStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "tabbar 上边框的颜色， 仅支持 `black` / `white`",
+          "default": "black"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ITabBarListItem"
+          },
+          "description": "tab 的列表，最少 2 个、最多 5 个 tab， tab 按数组的顺序排序，每个项都是一个对象。",
+          "minItems": 2,
+          "maxItems": 5
+        },
+        "position": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EPosition"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "tabBar 的位置，仅支持 `bottom` / `top`",
+          "default": "bottom"
+        },
+        "custom": {
+          "type": "boolean",
+          "description": "自定义 tabBar，见 [详情](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html)\n\n最低版本：2.5.0",
+          "default": false
+        }
+      },
+      "required": [
+        "color",
+        "selectedColor",
+        "backgroundColor",
+        "list"
+      ]
+    },
+    "EBorderStyle": {
+      "type": "string",
+      "enum": [
+        "black",
+        "white"
+      ]
+    },
+    "ITabBarListItem": {
+      "type": "object",
+      "properties": {
+        "pagePath": {
+          "type": "string",
+          "description": "页面路径，必须在 pages 中先定义"
+        },
+        "text": {
+          "type": "string",
+          "description": "tab 上按钮文字"
+        },
+        "iconPath": {
+          "type": "string",
+          "description": "图片路径，icon 大小限制为 40kb，建议尺寸为 81px * 81px，不支持网络图片。\n\n当 `position` 为 `top` 时，不显示 icon。"
+        },
+        "selectedIconPath": {
+          "type": "string",
+          "description": "选中时的图片路径，icon 大小限制为 40kb，建议尺寸为 81px * 81px，不支持网络图片。\n\n当 `position` 为 `top` 时，不显示 icon。"
+        }
+      },
+      "required": [
+        "pagePath",
+        "text"
+      ]
+    },
+    "EPosition": {
+      "type": "string",
+      "enum": [
+        "bottom",
+        "top"
+      ]
+    },
+    "EDisplayMode": {
+      "type": "string",
+      "enum": [
+        "desktop",
+        "mobile",
+        "pad"
+      ]
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "navigationBarBackgroundColor": {
+          "type": "string",
+          "description": "导航栏背景颜色，如 #000000",
+          "default": "#000000"
+        },
+        "navigationBarTextStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ENavigationBarTextStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "导航栏标题颜色，仅支持 `black` / `white`",
+          "default": "white"
+        },
+        "navigationBarTitleText": {
+          "type": "string",
+          "description": "导航栏标题文字内容"
+        },
+        "navigationStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ENavigationStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "导航栏样式，仅支持以下值：\n\n- `\"default\"` 默认样式\n\n- `\"custom\"` 自定义导航栏，只保留右上角胶囊按钮。\n\n注：关于navigationStyle\n- iOS/Android 客户端 7.0.0 以下版本，`navigationStyle` 只在 `app.json` 中生效。\n- iOS/Android 客户端 6.7.2 版本开始，`navigationStyle: \"custom\"` 对 [web-view](https://developers.weixin.qq.com/miniprogram/dev/component/web-view.html) 组件无效\n- 开启 `custom` 后，低版本客户端需要做好兼容。开发者工具基础库版本切到 1.7.0（不代表最低版本，只供调试用）可方便切到旧视觉\n- Windows 客户端 3.0 及以上版本，为了给用户提供更符合桌面软件的使用体验，统一了小程序窗口的导航栏，`navigationStyle: \"custom\"` 不再生效",
+          "default": "default"
+        },
+        "homeButton": {
+          "type": "boolean",
+          "description": "在非首页、非页面栈最底层页面或非tabbar内页面中的导航栏展示home键\n\n最低版本：微信客户端 8.0.24"
+        },
+        "backgroundColor": {
+          "type": "string",
+          "description": "窗口的背景色",
+          "default": "#ffffff"
+        },
+        "backgroundTextStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EBackgroundTextStyle"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "下拉 loading 的样式，仅支持 `dark` / `light`",
+          "default": "dark"
+        },
+        "backgroundColorTop": {
+          "type": "string",
+          "description": "顶部窗口的背景色，仅 iOS 支持\n\n最低版本：微信客户端 6.5.16",
+          "default": "#ffffff"
+        },
+        "backgroundColorBottom": {
+          "type": "string",
+          "description": "底部窗口的背景色，仅 iOS 支持\n\n最低版本：微信客户端 6.5.16",
+          "default": "#ffffff"
+        },
+        "enablePullDownRefresh": {
+          "type": "boolean",
+          "description": "是否开启全局的下拉刷新。\n\n详见 [Page.onPullDownRefresh](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onpulldownrefresh)",
+          "default": false
+        },
+        "onReachBottomDistance": {
+          "type": "number",
+          "description": "页面上拉触底事件触发时距页面底部距离，单位为 px。\n\n详见 [Page.onReachBottom](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onreachbottom)",
+          "default": 50
+        },
+        "pageOrientation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EPageOrientation"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "屏幕旋转设置，支持 `auto` / `portrait` / `landscape`\n\n详见 [响应显示区域变化](https://developers.weixin.qq.com/miniprogram/dev/framework/view/resizable.html)\n\n最低版本：[2.4.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) (auto) / 2.5.0 (landscape)",
+          "default": "portrait"
+        },
+        "restartStrategy": {
+          "$ref": "#/definitions/ERestartStrategy",
+          "description": "[重新启动策略](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/operating-mechanism.html#_2-1-%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E7%AD%96%E7%95%A5) 配置\n\n- `\"homePage\"` （默认值）如果从这个页面退出小程序，下次将从首页冷启动\n\n- `\"homePageAndLatestPage\"` 如果从这个页面退出小程序，下次冷启动后立刻加载这个页面，页面的参数保持不变（不可用于 tab 页）\n\n最低版本：[2.8.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "homePage"
+        },
+        "initialRenderingCache": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EInitialRenderingCache"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "页面 [初始渲染缓存](https://developers.weixin.qq.com/miniprogram/dev/framework/view/initial-rendering-cache.html) 配置，支持 `static` / `dynamic`\n\n最低版本：[2.11.1](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "visualEffectInBackground": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EVisualEffectInBackground"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "切入系统后台时，隐藏页面内容，保护用户隐私。支持 `hidden` / `none`\n\n最低版本：[2.15.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)",
+          "default": "none"
+        },
+        "handleWebviewPreload": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EHandleWebviewPreload"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "控制 [预加载下个页面的时机](https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips/runtime_nav.html#_2-4-%E6%8E%A7%E5%88%B6%E9%A2%84%E5%8A%A0%E8%BD%BD%E4%B8%8B%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%97%B6%E6%9C%BA)。 支持 `static` / `manual` / `auto`\n\n最低版本：[2.15.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)"
+        },
+        "component": {
+          "type": "boolean",
+          "description": "自定义组件 [详见](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/)\n\n首先需要在 json 文件中进行自定义组件声明 （将 component 字段设为 true 可将这一组文件设为自定义组件）\n\n注：需要基础库版本 1.6.3 或更高"
+        },
+        "styleIsolation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EStyleIsolation"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "组件样式隔离 [详见](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html)\n\n它支持以下取值：\n- `\"isolated\"` 表示启用样式隔离，在自定义组件内外，使用 class 指定的样式将不会相互影响（一般情况下的默认值）；\n- `\"apply-shared\"` 表示页面 wxss 样式将影响到自定义组件，但自定义组件 wxss 中指定的样式不会影响页面；\n- `\"shared\"` 表示页面 wxss 样式将影响到自定义组件，自定义组件 wxss 中指定的样式也会影响页面和其他设置了 `apply-shared` 或 `shared` 的自定义组件。（这个选项在插件中不可用。）\n\n如果这个 Component 构造器用于构造页面 ，则默认值为 `shared` ， 且还有以下几个额外的样式隔离选项可用：\n- `\"page-isolated\"` 表示在这个页面禁用 app.wxss ，同时，页面的 wxss 不会影响到其他自定义组件；\n- `\"page-apply-shared\"` 表示在这个页面禁用 app.wxss ，同时，页面 wxss 样式不会影响到其他自定义组件，但设为 `shared` 的自定义组件会影响到页面；\n- `\"page-shared\"` 表示在这个页面禁用 app.wxss ，同时，页面 wxss 样式会影响到其他设为 `apply-shared` 或 `shared` 的自定义组件，也会受到设为 `shared` 的自定义组件的影响。\n\n从小程序基础库版本 2.10.1 开始，也可以在页面或自定义组件的 json 文件中配置  `styleIsolation` （这样就不需在 js 文件的 `options` 中再配置）。\n\n注：需要基础库版本 2.6.5 或更高",
+          "default": "\"isolated\" | \"shared\""
+        },
+        "pureDataPattern": {
+          "type": "string",
+          "description": "组件数据中的纯数据字段 [详见](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/pure-data.html)\n\n从小程序基础库版本 2.10.1 开始， 也可以在页面或自定义组件的 json 文件中配置 `pureDataPattern` （这样就不需在 js 文件的 options 中再配置）。"
+        },
+        "componentGenerics": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/IComponentGenerics"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": "抽象节点 [详见](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/generics.html)\n\n抽象节点可以指定一个默认组件，当具体组件未被指定时，将创建默认组件的实例。"
+        },
+        "componentPlaceholder": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "占位组件 [详见](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/placeholder.html)\n\n在使用如 [分包异步化](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/async.html) 或 [用时注入](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html#%E7%94%A8%E6%97%B6%E6%B3%A8%E5%85%A5) 等特性时， 自定义组件所引用的其他自定义组件， 在刚开始进行渲染时可能处于不可用的状态。此时，为了使渲染过程不被阻塞， 不可用的自定义组件需要一个 「占位组件」（Component placeholder）。 基础库会用占位组件替代不可用组件进行渲染，在该组件可用后再将占位组件替换回该组件。\n\n注：基础库 2.11.2 及以上版本支持，2.11.2 以下和未配置的效果相同"
+        },
+        "backgroundColorContent": {
+          "type": "string",
+          "description": "页面容器背景色，[点击查看设置背景色详情](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/custom-route.html#%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E9%80%8F%E6%98%8E)",
+          "default": "#RRGGBBAA"
+        },
+        "disableScroll": {
+          "type": "boolean",
+          "description": "设置为 `true` 则页面整体不能上下滚动。 只在页面配置中有效style",
+          "default": false
+        },
+        "disableSwipeBack": {
+          "type": "boolean"
+        },
+        "pageJSONLight": {
+          "$ref": "#/definitions/Page"
+        },
+        "pageJSONDark": {
+          "$ref": "#/definitions/Page"
+        },
+        "mini-ios": {
+          "$ref": "#/definitions/Page"
+        },
+        "mini-android": {
+          "$ref": "#/definitions/Page"
+        },
+        "mini-weixin": {
+          "$ref": "#/definitions/Page"
+        }
+      },
+      "description": "小程序页面或组件配置\n\n`app.json` 中的部分配置，也支持对单个页面进行配置， 可以在页面对应的 .json 文件来对本页面的表现进行配置。\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/page.html>\n\n微信官方 schema：\n\n<https://dldir1.qq.com/WechatWebDev/plugins/editor/wechat-miniprogram_wx-json/1.0.0/page_component.schema.json>"
+    },
+    "EStyleIsolation": {
+      "type": "string",
+      "enum": [
+        "isolated",
+        "apply-shared",
+        "shared",
+        "page-isolated",
+        "page-apply-shared",
+        "page-shared"
+      ]
+    },
+    "IComponentGenerics": {
+      "type": "object",
+      "properties": {
+        "default": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "default"
+      ]
+    }
+  }
+}

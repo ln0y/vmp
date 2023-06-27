@@ -1,1 +1,31 @@
-../../shared/tsconfig.json
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es6"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noEmitOnError": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ESNext"
+  },
+  "include": [
+    "src/**/*",
+    "script/**/*",
+    "types/**/*",
+    "test/**/*",
+    "*.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test/types"
+  ]
+}

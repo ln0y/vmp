@@ -1,0 +1,335 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "$ref": "#/definitions/AdditionalProperties%3CGame%3E"
+    },
+    "AdditionalProperties<Game>": {
+      "type": "object",
+      "properties": {
+        "deviceOrientation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EDeviceOrientation"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "屏幕选择方向\n\n- `\"portrait\"` 竖屏。不随用户手机的旋转而旋转。\n- `\"landscape\"` home 键在屏幕右侧的横屏。当用户的手机没有锁定屏幕方向时，横屏的方向会随着手机的旋转而旋转。\n- `\"landscapeLeft\"` home 键在屏幕左侧的横屏\n- `\"landscapeRight\"` home 键在屏幕右侧的横屏",
+          "default": "portrait"
+        },
+        "showStatusBar": {
+          "type": "boolean",
+          "description": "是否显示状态栏",
+          "default": false
+        },
+        "networkTimeout": {
+          "$ref": "#/definitions/INetworkTimeout",
+          "description": "网络请求的超时时间，单位：毫秒"
+        },
+        "workers": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/IWorkers"
+            }
+          ],
+          "description": "多线程 Worker 配置项，[详细请参考](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/worker/basic.html)\n\n使用 Worker 处理多线程任务时，设置 `Worker` 代码放置的目录"
+        },
+        "subpackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISubpackages"
+          },
+          "description": "分包结构配置\n\n启用 [分包加载](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html) 时，声明项目分包结构\n\n写成 `subPackages` 也支持。\n\n注：微信客户端 6.6.7 ，基础库 2.1.0 及以上版本支持"
+        },
+        "subPackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ISubpackages"
+          },
+          "description": "分包结构配置\n\n启用 [分包加载](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html) 时，声明项目分包结构\n\n写成 `subpackages` 也支持。\n\n注：微信客户端 6.6.7 ，基础库 2.1.0 及以上版本支持"
+        },
+        "navigateToMiniProgramAppIdList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "需要跳转的小程序列表，详见 [wx.navigateToMiniProgram](https://developers.weixin.qq.com/minigame/dev/api/navigate/wx.navigateToMiniProgram.html)\n\n注：基础库 2.4.0 及以上版本支持"
+        },
+        "permission": {
+          "$ref": "#/definitions/IPermission",
+          "description": "小游戏 [接口权限](https://developers.weixin.qq.com/minigame/dev/guide/framework/authorize.html) 相关设置\n\n注：微信客户端 7.0.0"
+        },
+        "openDataContext": {
+          "type": "string",
+          "description": "小游戏开放数据域目录，详见 [关系链数据](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/open-data.html)"
+        },
+        "resizable": {
+          "type": "boolean",
+          "description": "是否开启大屏支持。如果开启，在 PC 端用户可以固定比例拖动窗口大小， 也可以将窗口置为全屏；在 iPad 上则开启屏幕旋转支持",
+          "default": false
+        },
+        "disableSetUserStorageFromMiniProgram": {
+          "type": "boolean",
+          "description": "是否禁止开放数据域接口 `wx.setUserCloudStorage` 写入托管数据， 设置为 true 之后，只能通过后台接口写用户托管数据",
+          "default": false
+        },
+        "lockStepOptions": {
+          "$ref": "#/definitions/ILockStepOptions",
+          "description": "[帧同步游戏服务](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/lock-step.html) 配置对象\n\n注：基础库 2.8.0 及以上版本支持"
+        },
+        "iOSHighPerformance": {
+          "type": "boolean",
+          "description": "是否开启iOS高性能模式。需要在mp后台开通后才可用，详情 [高性能模式](https://developers.weixin.qq.com/minigame/dev/guide/performance/perf-high-performance.html)",
+          "default": false
+        },
+        "plugins": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/IPlugin"
+          },
+          "description": "[游戏引擎插件](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/game-engine-plugin.html)"
+        },
+        "loadingImageInfo": {
+          "$ref": "#/definitions/ILoadingImageInfo"
+        }
+      }
+    },
+    "EDeviceOrientation": {
+      "type": "string",
+      "enum": [
+        "portrait",
+        "landscape",
+        "landscapeLeft",
+        "landscapeRight"
+      ]
+    },
+    "INetworkTimeout": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "number",
+          "description": "[wx.request](https://developers.weixin.qq.com/minigame/dev/api/network/request/wx.request.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        },
+        "connectSocket": {
+          "type": "number",
+          "description": "[wx.connectSocket](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.connectSocket.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        },
+        "uploadFile": {
+          "type": "number",
+          "description": "[wx.uploadFile](https://developers.weixin.qq.com/minigame/dev/api/network/upload/wx.uploadFile.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        },
+        "downloadFile": {
+          "type": "number",
+          "description": "[wx.downloadFile](https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html) 的超时时间，单位：毫秒。",
+          "default": 60000
+        }
+      }
+    },
+    "IWorkers": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "`Worker` 代码放置的目录"
+        },
+        "isSubpackage": {
+          "type": "boolean",
+          "description": "true 表示把 worker 打包为分包。默认 `false`。\n\n填 `false` 时等同于 `{ \"workers\": \"workers\" }`",
+          "default": false
+        }
+      },
+      "required": [
+        "path",
+        "isSubpackage"
+      ]
+    },
+    "ISubpackages": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "type": "string",
+          "description": "分包根目录"
+        },
+        "name": {
+          "type": "string",
+          "description": "分包别名"
+        },
+        "independent": {
+          "type": "boolean",
+          "description": "分包是否是 [独立分包](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/independent-sub-packages.html)"
+        },
+        "plugins": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/IPlugin"
+          },
+          "description": "分包内引入插件"
+        }
+      },
+      "required": [
+        "root"
+      ]
+    },
+    "IPlugin": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "插件的版本号"
+        },
+        "provider": {
+          "type": "string",
+          "description": "插件的 appid"
+        },
+        "path": {
+          "type": "string",
+          "description": "引擎插件的本地文件夹路径"
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IContexts"
+          }
+        }
+      },
+      "required": [
+        "version",
+        "provider"
+      ]
+    },
+    "IContexts": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EContextsType"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "EContextsType": {
+      "type": "string",
+      "enum": [
+        "gameContext",
+        "isolatedContext",
+        "openDataContext"
+      ]
+    },
+    "IPermission": {
+      "type": "object",
+      "properties": {
+        "scope.userInfo": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "用户信息\n\n对应接口：\n- wx.getUserInfo"
+        },
+        "scope.userLocation": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "地理位置\n\n对应接口：\n- wx.getLocation"
+        },
+        "scope.werun": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "微信运动步数\n\n对应接口：\n- wx.getWeRunData"
+        },
+        "scope.writePhotosAlbum": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "保存到相册\n\n对应接口：\n- wx.saveImageToPhotosAlbum"
+        },
+        "scope.WxFriendInteraction": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "是否授权使用你的微信朋友信息\n\n对应接口：\n- [wx.getFriendCloudStorage](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getFriendCloudStorage.html)\n- [wx.getGroupCloudStorage](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getGroupCloudStorage.html)\n- [wx.getGroupInfo](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getGroupInfo.html)\n- [wx.getPotentialFriendList](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getPotentialFriendList.html)\n- [wx.getUserCloudStorageKeys](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getUserCloudStorageKeys.html)\n- [wx.getUserInfo](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/OpenDataContext-wx.getUserInfo.html)\n- [GameServerManager.getFriendsStateData](https://developers.weixin.qq.com/minigame/dev/api/game-server-manager/GameServerManager.getFriendsStateData.html)\n- [wx.getUserInteractiveStorage](https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getUserInteractiveStorage.html)"
+        },
+        "scope.gameClubData": {
+          "$ref": "#/definitions/PermissionObject",
+          "description": "游戏圈加圈、点赞、发表数据\n\n对应接口：\n- wx.getGameClubData"
+        }
+      }
+    },
+    "PermissionObject": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string",
+          "description": "小程序获取权限时展示的接口用途说明。最长 30 个字符"
+        }
+      },
+      "required": [
+        "desc"
+      ]
+    },
+    "ILockStepOptions": {
+      "type": "object",
+      "properties": {
+        "gameTick": {
+          "type": "number",
+          "description": "游戏帧下发周期，单位 ms",
+          "default": 33
+        },
+        "heartBeatTick": {
+          "type": "number",
+          "description": "帧同步心跳周期，单位 ms",
+          "default": 2000
+        },
+        "offlineTimeLength": {
+          "type": "number",
+          "description": "帧同步心跳超时时长，单位 ms",
+          "default": 100000
+        },
+        "UDPReliabilityStrategy": {
+          "type": "number",
+          "description": "帧冗余策略，表示每次下发帧时总共下发的帧数量",
+          "default": 3
+        },
+        "dataType": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/EDataType"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "actionList 的数据类型\n\n有效值：\n- `\"String\"` 字符串\n- `\"ArrayBuffer\"` 二进制数据",
+          "default": "String"
+        }
+      }
+    },
+    "EDataType": {
+      "type": "string",
+      "enum": [
+        "String",
+        "ArrayBuffer"
+      ]
+    },
+    "ILoadingImageInfo": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "progressBarColor": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  }
+}
