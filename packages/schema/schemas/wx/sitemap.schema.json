@@ -3,7 +3,9 @@
   "$ref": "#/definitions/Schema",
   "definitions": {
     "Schema": {
-      "$ref": "#/definitions/Sitemap"
+      "$ref": "#/definitions/Sitemap",
+      "description": "小程序及页面微信索引配置\n\n小程序根目录下的 sitemap.json 文件用于配置小程序及其页面是否允许被微信索引， 或者管理后台页面收录开关来配置其小程序页面是否允许微信索引。 当开发者允许微信索引时，微信会通过爬虫的形式，为小程序的页面内容建立索引。\n\n注：没有 sitemap.json 则默认所有页面都能被索引\n\n微信文档：\n\n\n\n微信官方 schema：\n\n",
+      "markdownDescription": "小程序及页面微信索引配置\n\n小程序根目录下的 `sitemap.json` 文件用于配置小程序及其页面是否允许被微信索引， 或者管理后台页面收录开关来配置其小程序页面是否允许微信索引。 当开发者允许微信索引时，微信会通过爬虫的形式，为小程序的页面内容建立索引。\n\n注：没有 sitemap.json 则默认所有页面都能被索引\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/sitemap.html>\n\n微信官方 schema：\n\n<https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/sitemap.schema.json>"
     },
     "Sitemap": {
       "type": "object",
@@ -11,20 +13,21 @@
         "desc": {
           "type": "string",
           "description": "sitemap 描述",
-          "default": "关于本文件的更多信息，请参考文档 https://developers.weixin.qq.com/miniprogram/dev/framework/sitemap.html"
+          "default": "关于本文件的更多信息，请参考文档 https://developers.weixin.qq.com/miniprogram/dev/framework/sitemap.html",
+          "markdownDescription": "sitemap 描述"
         },
         "rules": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/IRules"
           },
-          "description": "索引规则列表"
+          "description": "索引规则列表",
+          "markdownDescription": "索引规则列表"
         }
       },
       "required": [
         "rules"
-      ],
-      "description": "小程序及页面微信索引配置\n\n小程序根目录下的 `sitemap.json` 文件用于配置小程序及其页面是否允许被微信索引， 或者管理后台页面收录开关来配置其小程序页面是否允许微信索引。 当开发者允许微信索引时，微信会通过爬虫的形式，为小程序的页面内容建立索引。\n\n注：没有 sitemap.json 则默认所有页面都能被索引\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/sitemap.html>\n\n微信官方 schema：\n\n<https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/sitemap.schema.json>"
+      ]
     },
     "IRules": {
       "type": "object",
@@ -38,8 +41,9 @@
               "type": "string"
             }
           ],
-          "description": "命中该规则的页面是否能被索引\n\n未显式指明 `\"disallow\"` 的都默认被索引",
-          "default": "allow"
+          "description": "命中该规则的页面是否能被索引\n\n未显式指明 \"disallow\" 的都默认被索引",
+          "default": "allow",
+          "markdownDescription": "命中该规则的页面是否能被索引\n\n未显式指明 `\"disallow\"` 的都默认被索引"
         },
         "page": {
           "anyOf": [
@@ -50,7 +54,8 @@
               "type": "string"
             }
           ],
-          "description": "配置页面的路径\n\n`*` 表示所有页面，不能作为通配符使用"
+          "description": "配置页面的路径\n\n* 表示所有页面，不能作为通配符使用",
+          "markdownDescription": "配置页面的路径\n\n`*` 表示所有页面，不能作为通配符使用"
         },
         "params": {
           "type": "array",
@@ -58,7 +63,8 @@
             "type": "string"
           },
           "description": "当 page 字段指定的页面在被本规则匹配时可能使用的页面参数名称的列表（不含参数值）",
-          "default": []
+          "default": [],
+          "markdownDescription": "当 page 字段指定的页面在被本规则匹配时可能使用的页面参数名称的列表（不含参数值）"
         },
         "matching": {
           "anyOf": [
@@ -69,11 +75,13 @@
               "type": "string"
             }
           ],
-          "description": "当 page 字段指定的页面在被本规则匹配时，此参数说明 params 匹配方式\n\n取值说明：\n- `\"exact\"` 当小程序页面的参数列表等于 params 时，规则命中\n- `\"exclusive\"` 当小程序页面的参数列表包含 params 时，规则命中\n- `\"inclusive\"` 当小程序页面的参数列表与 params 交集为空时，规则命中\n- `\"partial\"` 当小程序页面的参数列表与 params 交集不为空时，规则命中"
+          "description": "当 page 字段指定的页面在被本规则匹配时，此参数说明 params 匹配方式\n\n取值说明：\n\"exact\" 当小程序页面的参数列表等于 params 时，规则命中\n\"exclusive\" 当小程序页面的参数列表包含 params 时，规则命中\n\"inclusive\" 当小程序页面的参数列表与 params 交集为空时，规则命中\n\"partial\" 当小程序页面的参数列表与 params 交集不为空时，规则命中",
+          "markdownDescription": "当 page 字段指定的页面在被本规则匹配时，此参数说明 params 匹配方式\n\n取值说明：\n- `\"exact\"` 当小程序页面的参数列表等于 params 时，规则命中\n- `\"exclusive\"` 当小程序页面的参数列表包含 params 时，规则命中\n- `\"inclusive\"` 当小程序页面的参数列表与 params 交集为空时，规则命中\n- `\"partial\"` 当小程序页面的参数列表与 params 交集不为空时，规则命中"
         },
         "priority": {
           "type": "number",
-          "description": "优先级，值越大则规则越早被匹配，否则默认从上到下匹配"
+          "description": "优先级，值越大则规则越早被匹配，否则默认从上到下匹配",
+          "markdownDescription": "优先级，值越大则规则越早被匹配，否则默认从上到下匹配"
         }
       },
       "required": [

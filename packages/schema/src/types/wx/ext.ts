@@ -16,6 +16,8 @@ import type { Page } from './page_component'
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/ext.schema.json>
  */
+export type Schema = Ext
+
 export interface Ext extends Omit<Partial<App>, 'tabBar'> {
   /**
    * 配置 ext.json 是否生效
@@ -75,5 +77,3 @@ export interface Ext extends Omit<Partial<App>, 'tabBar'> {
 
   [key: string]: any
 }
-
-export type Schema = Ext

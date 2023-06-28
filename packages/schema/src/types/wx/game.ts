@@ -14,6 +14,8 @@ import type { IWorkers, PermissionObject } from './app'
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/game.schema.json>
  */
+export type Schema = AdditionalProperties<Game>
+
 export interface Game {
   /**
    * 屏幕选择方向
@@ -356,5 +358,3 @@ export interface ILoadingImageInfo {
   progressBarColor?: string
   [key: string]: any
 }
-
-export type Schema = AdditionalProperties<Game>

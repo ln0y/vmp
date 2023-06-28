@@ -13,6 +13,8 @@ import type { AdditionalProperties } from '../utils'
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/app.schema.json>
  */
+export type Schema = AdditionalProperties<App>
+
 export interface App {
   /**
    * 小程序默认启动首页
@@ -1259,5 +1261,3 @@ export enum EDisplayMode {
   mobile = 'mobile',
   pad = 'pad',
 }
-
-export type Schema = AdditionalProperties<App>

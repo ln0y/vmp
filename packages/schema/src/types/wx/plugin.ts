@@ -13,6 +13,8 @@ import type { AdditionalProperties } from '../utils'
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/plugin.schema.json>
  */
+export type Schema = AdditionalProperties<Plugin>
+
 export interface Plugin {
   /**
    * 导出的所有 js 接口
@@ -39,5 +41,3 @@ export interface Plugin {
    */
   cloud?: boolean
 }
-
-export type Schema = AdditionalProperties<Plugin>

@@ -7,6 +7,8 @@ import type { AdditionalProperties } from '../utils'
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/container.config.schema.json>
  */
+export type Schema = AdditionalProperties<ContainerConfig>
+
 export interface ContainerConfig {
   /**
    * 版本备注
@@ -91,5 +93,3 @@ export interface ContainerConfig {
    */
   flowRatio?: 0 | 1
 }
-
-export type Schema = AdditionalProperties<ContainerConfig>

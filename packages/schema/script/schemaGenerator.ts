@@ -5,8 +5,14 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { glob } from 'glob'
 import type { Config } from 'ts-json-schema-generator'
-import * as tsj from 'ts-json-schema-generator'
+import {
+  SchemaGenerator,
+  createFormatter,
+  createParser,
+  createProgram,
+} from 'ts-json-schema-generator'
 import ora from 'ora'
+import { MarkdownDescriptionFormatter } from './markdownDescriptionFormatter'
 
 function resolve(path: string) {
   return fileURLToPath(new URL(path, import.meta.url))
@@ -17,6 +23,7 @@ const cwd = resolve('..')
 const outputRootDir = resolve('../schemas/')
 const inputRootDir = resolve('../src/types/')
 
+// todo 可以选择不同的类型小程序
 const types = ['wx']
 
 async function main(type: string) {
@@ -50,12 +57,23 @@ async function main(type: string) {
 
     spinner.text = `building ${outputFile}`
 
-    // 创建生成器
-    const generator = tsj.createGenerator({ ...config, path: filePath })
+    const program = createProgram({ ...config, path: filePath })
+
+    const parser = createParser(program, config)
+
+    // 添加自定义格式化程序。
+    const formatter = createFormatter(config, (fmt, circularReferenceTypeFormatter) => {
+      fmt.addTypeFormatter(new MarkdownDescriptionFormatter(circularReferenceTypeFormatter))
+    })
+
+    const generator = new SchemaGenerator(program, parser, formatter, config)
+
     // 指定生成的 type
     const schema = generator.createSchema(config.type)
+
+    // todo 添加 minify arg
     // 生成 json 字符串
-    const schemaString = JSON.stringify(schema, null, 2)
+    const schemaString = JSON.stringify(schema)
 
     await fs.writeFile(outputPath, schemaString)
   }
@@ -69,4 +87,4 @@ process.on('unhandledRejection', (reason: Error, promise) => {
 })
 
 for (const type of types)
-  await main(type)
+  main(type)

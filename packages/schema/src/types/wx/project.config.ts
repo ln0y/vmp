@@ -11,6 +11,8 @@
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/project.config.schema.json>
  */
+export type Schema = ProjectConfig
+
 export interface ProjectConfig {
   /**
    * 指定小程序源码的目录(需为相对路径)
@@ -1236,8 +1238,6 @@ export enum ECssUnit {
   vmin = 'vmin',
   vw = 'vw',
 }
-
-export type Schema = ProjectConfig
 
 // todo 添加 "markdownDescription"
 // https://github.com/microsoft/vscode/issues/34498

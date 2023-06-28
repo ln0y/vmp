@@ -10,8 +10,8 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": [
         "tsx",
-        "${file}",
       ],
+      "program": "${file}",
       "type": "node"
     },
     {

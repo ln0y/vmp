@@ -95,6 +95,8 @@ export interface Components extends PageBase {
  *
  * <https://dldir1.qq.com/WechatWebDev/plugins/editor/wechat-miniprogram_wx-json/1.0.0/page_component.schema.json>
  */
+export type Schema = Page
+
 export interface Page extends Components {
   /**
    * 页面容器背景色，[点击查看设置背景色详情](https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/custom-route.html#%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E9%80%8F%E6%98%8E)
@@ -170,4 +172,3 @@ export interface IComponentGenerics {
 
   [key: string]: any
 }
-export type Schema = Page

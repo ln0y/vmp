@@ -3,38 +3,47 @@
   "$ref": "#/definitions/Schema",
   "definitions": {
     "Schema": {
-      "$ref": "#/definitions/ProjectConfig"
+      "$ref": "#/definitions/ProjectConfig",
+      "description": "小程序项目配置文件\n\n可以在项目根目录使用 project.config.json 文件对项目进行配置。\n\n微信文档：\n\n\n\n微信官方 schema：\n\n",
+      "markdownDescription": "小程序项目配置文件\n\n可以在项目根目录使用 `project.config.json` 文件对项目进行配置。\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html>\n\n微信官方 schema：\n\n<https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/project.config.schema.json>"
     },
     "ProjectConfig": {
       "type": "object",
       "properties": {
         "miniprogramRoot": {
           "type": "string",
-          "description": "指定小程序源码的目录(需为相对路径)"
+          "description": "指定小程序源码的目录(需为相对路径)",
+          "markdownDescription": "指定小程序源码的目录(需为相对路径)"
         },
         "qcloudRoot": {
           "type": "string",
-          "description": "指定腾讯云项目的目录(需为相对路径)"
+          "description": "指定腾讯云项目的目录(需为相对路径)",
+          "markdownDescription": "指定腾讯云项目的目录(需为相对路径)"
         },
         "pluginRoot": {
           "type": "string",
-          "description": "指定插件项目的目录(需为相对路径)"
+          "description": "指定插件项目的目录(需为相对路径)",
+          "markdownDescription": "指定插件项目的目录(需为相对路径)"
         },
         "cloudbaseRoot": {
           "type": "string",
-          "description": "云开发代码根目录(需为相对路径)"
+          "description": "云开发代码根目录(需为相对路径)",
+          "markdownDescription": "云开发代码根目录(需为相对路径)"
         },
         "cloudfunctionRoot": {
           "type": "string",
-          "description": "云函数代码根目录(需为相对路径)"
+          "description": "云函数代码根目录(需为相对路径)",
+          "markdownDescription": "云函数代码根目录(需为相对路径)"
         },
         "cloudfunctionTemplateRoot": {
           "type": "string",
-          "description": "云函数本地调试请求模板的根目录(需为相对路径)"
+          "description": "云函数本地调试请求模板的根目录(需为相对路径)",
+          "markdownDescription": "云函数本地调试请求模板的根目录(需为相对路径)"
         },
         "cloudcontainerRoot": {
           "type": "string",
-          "description": "云托管代码根目录(需为相对路径)"
+          "description": "云托管代码根目录(需为相对路径)",
+          "markdownDescription": "云托管代码根目录(需为相对路径)"
         },
         "compileType": {
           "anyOf": [
@@ -45,12 +54,14 @@
               "type": "string"
             }
           ],
-          "description": "编译类型\n\n- `\"miniprogram\"` 当前为普通小程序项目\n\n- `\"plugin\"` 当前为小程序插件项目",
-          "default": "miniprogram"
+          "description": "编译类型\n\n\"miniprogram\" 当前为普通小程序项目\n\n\"plugin\" 当前为小程序插件项目",
+          "default": "miniprogram",
+          "markdownDescription": "编译类型\n\n- `\"miniprogram\"` 当前为普通小程序项目\n\n- `\"plugin\"` 当前为小程序插件项目"
         },
         "setting": {
           "$ref": "#/definitions/ISetting",
-          "description": "项目的编译设置，可以指定以下设置。部分设置无法在 `project.private.config.json` 中生效"
+          "description": "项目的编译设置，可以指定以下设置。部分设置无法在 project.private.config.json 中生效",
+          "markdownDescription": "项目的编译设置，可以指定以下设置。部分设置无法在 `project.private.config.json` 中生效"
         },
         "libVersion": {
           "anyOf": [
@@ -61,63 +72,77 @@
               "type": "string"
             }
           ],
-          "description": "基础库版本\n\n可以指定项目运行的基础库具体的版本号，也可以指定以下值\n\n- `\"latest\"` 最新的非灰度中的基础库\n\n- `\"trial\"` 最新的基础库\n\n- `\"widelyUsed\"` 使用比例最高的基础库"
+          "description": "基础库版本\n\n可以指定项目运行的基础库具体的版本号，也可以指定以下值\n\n\"latest\" 最新的非灰度中的基础库\n\n\"trial\" 最新的基础库\n\n\"widelyUsed\" 使用比例最高的基础库",
+          "markdownDescription": "基础库版本\n\n可以指定项目运行的基础库具体的版本号，也可以指定以下值\n\n- `\"latest\"` 最新的非灰度中的基础库\n\n- `\"trial\"` 最新的基础库\n\n- `\"widelyUsed\"` 使用比例最高的基础库"
         },
         "appid": {
           "type": "string",
-          "description": "项目的 appid，`只在新建项目时读取`"
+          "description": "项目的 appid，只在新建项目时读取",
+          "markdownDescription": "项目的 appid，`只在新建项目时读取`"
         },
         "projectname": {
           "type": "string",
-          "description": "项目名字，`只在新建项目时读取`"
+          "description": "项目名字，只在新建项目时读取",
+          "markdownDescription": "项目名字，`只在新建项目时读取`"
         },
         "description": {
           "type": "string",
-          "description": "项目描述"
+          "description": "项目描述",
+          "markdownDescription": "项目描述"
         },
         "packOptions": {
           "$ref": "#/definitions/IPackOptions",
-          "description": "打包配置选项\n\n`packOptions` 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。\n\n注: 这部分设置的更改可能需要重新打开项目才能生效。"
+          "description": "打包配置选项\n\npackOptions 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。\n\n注: 这部分设置的更改可能需要重新打开项目才能生效。",
+          "markdownDescription": "打包配置选项\n\n`packOptions` 用以配置项目在打包过程中的选项。打包是预览、上传时对项目进行的必须步骤。\n\n注: 这部分设置的更改可能需要重新打开项目才能生效。"
         },
         "debugOptions": {
           "$ref": "#/definitions/IDebugOptions",
-          "description": "调试配置选项\n\n`debugOptions` 用以配置在对项目代码进行调试时的选项\n\n注：配置此规则后，可能需要关闭并重新打开项目才能看到效果。"
+          "description": "调试配置选项\n\ndebugOptions 用以配置在对项目代码进行调试时的选项\n\n注：配置此规则后，可能需要关闭并重新打开项目才能看到效果。",
+          "markdownDescription": "调试配置选项\n\n`debugOptions` 用以配置在对项目代码进行调试时的选项\n\n注：配置此规则后，可能需要关闭并重新打开项目才能看到效果。"
         },
         "watchOptions": {
           "$ref": "#/definitions/IWatchOptions",
-          "description": "文件监听配置设置\n\n`watchOptions` 用以配置项目中可以被忽略展示和监听文件变化的文件匹配规则。 部分项目（如游戏项目）其项目文件可能成千上万，其中大部分可能是资源文件， 并不是小程序和小游戏代码中关心展示的文件，这些文件在工具开发时可以不需要被开发者关注， 因此工具可以增加一个配置去忽略指定的文件和目录， 从而不对这些文件进行文件遍历获取和文件内容变更的监听（watch）， 从而提高开启工具的速度以及减少工具打开占用的内存。"
+          "description": "文件监听配置设置\n\nwatchOptions 用以配置项目中可以被忽略展示和监听文件变化的文件匹配规则。 部分项目（如游戏项目）其项目文件可能成千上万，其中大部分可能是资源文件， 并不是小程序和小游戏代码中关心展示的文件，这些文件在工具开发时可以不需要被开发者关注， 因此工具可以增加一个配置去忽略指定的文件和目录， 从而不对这些文件进行文件遍历获取和文件内容变更的监听（watch）， 从而提高开启工具的速度以及减少工具打开占用的内存。",
+          "markdownDescription": "文件监听配置设置\n\n`watchOptions` 用以配置项目中可以被忽略展示和监听文件变化的文件匹配规则。 部分项目（如游戏项目）其项目文件可能成千上万，其中大部分可能是资源文件， 并不是小程序和小游戏代码中关心展示的文件，这些文件在工具开发时可以不需要被开发者关注， 因此工具可以增加一个配置去忽略指定的文件和目录， 从而不对这些文件进行文件遍历获取和文件内容变更的监听（watch）， 从而提高开启工具的速度以及减少工具打开占用的内存。"
         },
         "scripts": {
           "$ref": "#/definitions/IScripts",
-          "description": "指定自定义预处理的命令"
+          "description": "指定自定义预处理的命令",
+          "markdownDescription": "指定自定义预处理的命令"
         },
         "staticServerOptions": {
           "$ref": "#/definitions/IStaticServerOptions",
-          "description": "仅在小游戏项目中有效\n\n在微信开发者工具里开启一个本地静态资源服务器，用于托管项目静态资源。"
+          "description": "仅在小游戏项目中有效\n\n在微信开发者工具里开启一个本地静态资源服务器，用于托管项目静态资源。",
+          "markdownDescription": "仅在小游戏项目中有效\n\n在微信开发者工具里开启一个本地静态资源服务器，用于托管项目静态资源。"
         },
         "editorSetting": {
           "$ref": "#/definitions/IEditorSetting",
           "description": "编辑器设置 （会覆盖工具里的设置）\n\n指定自动生成的文件的 tabIndent 和 tabSize",
-          "examples": "require('.').editorSettingExample"
+          "examples": "require('.').editorSettingExample",
+          "markdownDescription": "编辑器设置 （会覆盖工具里的设置）\n\n指定自动生成的文件的 tabIndent 和 tabSize"
         },
         "condition": {
           "$ref": "#/definitions/ICondition",
-          "description": "编译模式，文档中未描述"
+          "description": "编译模式，文档中未描述",
+          "markdownDescription": "编译模式，文档中未描述"
         },
         "simulatorType": {
           "type": "string",
           "description": "模拟器类型",
           "examples": [
             "wechat"
-          ]
+          ],
+          "markdownDescription": "模拟器类型"
         },
         "simulatorPluginLibVersion": {
           "type": "object",
-          "description": "模拟器的版本"
+          "description": "模拟器的版本",
+          "markdownDescription": "模拟器的版本"
         },
         "skeletonConfig": {
           "$ref": "#/definitions/ISkeletonConfig",
-          "description": "骨架屏配置 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html)"
+          "description": "骨架屏配置 点击查看文档",
+          "markdownDescription": "骨架屏配置 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html)"
         },
         "jsserverRoot": {
           "type": "string"
@@ -133,8 +158,7 @@
         "compileType",
         "appid",
         "projectname"
-      ],
-      "description": "小程序项目配置文件\n\n可以在项目根目录使用 `project.config.json` 文件对项目进行配置。\n\n微信文档：\n\n<https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html>\n\n微信官方 schema：\n\n<https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/project.config.schema.json>"
+      ]
     },
     "ECompileType": {
       "type": "string",
@@ -142,84 +166,102 @@
         "plugin",
         "miniprogram"
       ],
-      "description": "编译类型作用于开发工具的以下设置"
+      "description": "编译类型作用于开发工具的以下设置",
+      "markdownDescription": "编译类型作用于开发工具的以下设置"
     },
     "ISetting": {
       "type": "object",
       "properties": {
         "condition": {
           "type": "boolean",
-          "description": "启用条件编译 [点击查看文档](https://dev.weixin.qq.com/docs/framework/dev/framework/operation/condition-compile.html)\n\n允许私有设置 否"
+          "description": "启用条件编译 点击查看文档\n\n允许私有设置 否",
+          "markdownDescription": "启用条件编译 [点击查看文档](https://dev.weixin.qq.com/docs/framework/dev/framework/operation/condition-compile.html)\n\n允许私有设置 否"
         },
         "es6": {
           "type": "boolean",
-          "description": "是否启用 es6 转 es5\n\n允许私有设置 否\n\n注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`",
-          "default": false
+          "description": "是否启用 es6 转 es5\n\n允许私有设置 否\n\n注: es6 和 enhance 需同时为 true/false，对应于 将 JS 编译成 ES5",
+          "default": false,
+          "markdownDescription": "是否启用 es6 转 es5\n\n允许私有设置 否\n\n注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`"
         },
         "enhance": {
           "type": "boolean",
-          "description": "是否打开增强编译\n\n允许私有设置 否\n\n注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`"
+          "description": "是否打开增强编译\n\n允许私有设置 否\n\n注: es6 和 enhance 需同时为 true/false，对应于 将 JS 编译成 ES5",
+          "markdownDescription": "是否打开增强编译\n\n允许私有设置 否\n\n注: `es6` 和 `enhance` 需同时为 true/false，对应于 `将 JS 编译成 ES5`"
         },
         "postcss": {
           "type": "boolean",
           "description": "上传代码时样式是否自动补全\n\n允许私有设置 否",
-          "default": false
+          "default": false,
+          "markdownDescription": "上传代码时样式是否自动补全\n\n允许私有设置 否"
         },
         "minified": {
           "type": "boolean",
           "description": "上传代码时是否自动压缩脚本文件\n\n允许私有设置 否",
-          "default": false
+          "default": false,
+          "markdownDescription": "上传代码时是否自动压缩脚本文件\n\n允许私有设置 否"
         },
         "minifyWXSS": {
           "type": "boolean",
-          "description": "上传代码时是否自动压缩样式文件\n\n允许私有设置 否"
+          "description": "上传代码时是否自动压缩样式文件\n\n允许私有设置 否",
+          "markdownDescription": "上传代码时是否自动压缩样式文件\n\n允许私有设置 否"
         },
         "minifyWXML": {
           "type": "boolean",
-          "description": "上传代码时是否自动压缩 WXML 文件\n\n允许私有设置 否"
+          "description": "上传代码时是否自动压缩 WXML 文件\n\n允许私有设置 否",
+          "markdownDescription": "上传代码时是否自动压缩 WXML 文件\n\n允许私有设置 否"
         },
         "uglifyFileName": {
           "type": "boolean",
           "description": "上传时进行代码保护\n\n允许私有设置 否",
-          "default": false
+          "default": false,
+          "markdownDescription": "上传时进行代码保护\n\n允许私有设置 否"
         },
         "ignoreUploadUnusedFiles": {
           "type": "boolean",
-          "description": "上传时是否过滤无依赖文件\n\n允许私有设置 否"
+          "description": "上传时是否过滤无依赖文件\n\n允许私有设置 否",
+          "markdownDescription": "上传时是否过滤无依赖文件\n\n允许私有设置 否"
         },
         "autoAudits": {
           "type": "boolean",
           "description": "是否自动运行体验评分\n\n允许私有设置 是",
-          "default": false
+          "default": false,
+          "markdownDescription": "是否自动运行体验评分\n\n允许私有设置 是"
         },
         "urlCheck": {
           "type": "boolean",
           "description": "是否检查安全域名和 TLS 版本\n\n允许私有设置 是",
-          "default": false
+          "default": false,
+          "markdownDescription": "是否检查安全域名和 TLS 版本\n\n允许私有设置 是"
         },
         "compileHotReLoad": {
           "type": "boolean",
-          "description": "是否开启文件保存后自动热重载\n\n允许私有设置 是"
+          "description": "是否开启文件保存后自动热重载\n\n允许私有设置 是",
+          "markdownDescription": "是否开启文件保存后自动热重载\n\n允许私有设置 是"
         },
         "preloadBackgroundData": {
           "type": "boolean",
-          "description": "小程序加载时是否数据预拉取\n\n允许私有设置 是"
+          "description": "小程序加载时是否数据预拉取\n\n允许私有设置 是",
+          "markdownDescription": "小程序加载时是否数据预拉取\n\n允许私有设置 是"
         },
         "lazyloadPlaceholderEnable": {
           "type": "boolean",
-          "description": "是否启用懒注入占位组件调试\n\n允许私有设置 是\n\n注: (懒注入占位组件调试) 开启按需注入 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html) 后在项目设置面板中会出现对应的勾选项， 开启之后，按需注入的组件将会停止注入，页面停止在占位组件状态， 便于调试自定义占位组件。"
+          "description": "是否启用懒注入占位组件调试\n\n允许私有设置 是\n\n注: (懒注入占位组件调试) 开启按需注入 点击查看文档 后在项目设置面板中会出现对应的勾选项， 开启之后，按需注入的组件将会停止注入，页面停止在占位组件状态， 便于调试自定义占位组件。",
+          "markdownDescription": "是否启用懒注入占位组件调试\n\n允许私有设置 是\n\n注: (懒注入占位组件调试) 开启按需注入 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/lazyload.html) 后在项目设置面板中会出现对应的勾选项， 开启之后，按需注入的组件将会停止注入，页面停止在占位组件状态， 便于调试自定义占位组件。"
         },
         "useStaticServer": {
           "type": "boolean",
-          "description": "仅在小游戏项目有效，是否开启静态资源服务器\n\n允许私有设置 是\n\n注: (静态资源服务器) 可以托管项目本地的静态资源， 主要用于在预览时测试小游戏真机资源加载的效果。"
+          "description": "仅在小游戏项目有效，是否开启静态资源服务器\n\n允许私有设置 是\n\n注: (静态资源服务器) 可以托管项目本地的静态资源， 主要用于在预览时测试小游戏真机资源加载的效果。",
+          "markdownDescription": "仅在小游戏项目有效，是否开启静态资源服务器\n\n允许私有设置 是\n\n注: (静态资源服务器) 可以托管项目本地的静态资源， 主要用于在预览时测试小游戏真机资源加载的效果。"
         },
         "bigPackageSizeSupport": {
           "type": "boolean",
-          "description": "预览及真机调试的时主包、分包体积上限调整为4M（小程序）、8M（小游戏）\n\n允许私有设置 是"
+          "description": "预览及真机调试的时主包、分包体积上限调整为4M（小程序）、8M（小游戏）\n\n允许私有设置 是",
+          "markdownDescription": "预览及真机调试的时主包、分包体积上限调整为4M（小程序）、8M（小游戏）\n\n允许私有设置 是"
         },
         "babelSetting": {
           "$ref": "#/definitions/IBabelSetting",
-          "description": "增强编译下Babel的配置项\n\n允许私有设置 否"
+          "description": "增强编译下Babel的配置项\n\n允许私有设置 否",
+          "markdownDescription": "增强编译下Babel的配置项\n\n允许私有设置 否"
         },
         "useCompilerPlugins": {
           "anyOf": [
@@ -234,93 +276,113 @@
               "const": false
             }
           ],
-          "description": "编译插件配置\n\n允许私有设置 否"
+          "description": "编译插件配置\n\n允许私有设置 否",
+          "markdownDescription": "编译插件配置\n\n允许私有设置 否"
         },
         "disableUseStrict": {
           "type": "boolean",
-          "description": "将 JS 编译成 ES5 时，是否禁用严格模式\n\n允许私有设置 否"
+          "description": "将 JS 编译成 ES5 时，是否禁用严格模式\n\n允许私有设置 否",
+          "markdownDescription": "将 JS 编译成 ES5 时，是否禁用严格模式\n\n允许私有设置 否"
         },
         "uploadWithSourceMap": {
           "type": "boolean",
           "description": "上传时是否带上 sourcemap（默认为true）\n\n允许私有设置 否",
-          "default": true
+          "default": true,
+          "markdownDescription": "上传时是否带上 sourcemap（默认为true）\n\n允许私有设置 否"
         },
         "localPlugins": {
           "type": "boolean",
           "description": "在小游戏插件项目中，是否启用 “以本地目录为插件资源来源” 特性\n\n允许私有设置 否\n\n注: (以本地目录为插件资源来源) 启用此特性后， 工具将停止从线上获取小游戏插件包内容，并将检验本地相应目录的文件完整性。 仅对小游戏插件项目有效。要以本地磁盘目录作为插件的资源来源， 需要同时在小游戏插件项目的 game.json 中配置相关的属性。",
-          "default": true
+          "default": true,
+          "markdownDescription": "在小游戏插件项目中，是否启用 “以本地目录为插件资源来源” 特性\n\n允许私有设置 否\n\n注: (以本地目录为插件资源来源) 启用此特性后， 工具将停止从线上获取小游戏插件包内容，并将检验本地相应目录的文件完整性。 仅对小游戏插件项目有效。要以本地磁盘目录作为插件的资源来源， 需要同时在小游戏插件项目的 game.json 中配置相关的属性。"
         },
         "packNpmManually": {
           "type": "boolean",
           "description": "是否手动配置构建 npm 的路径\n\n允许私有设置 否",
-          "default": true
+          "default": true,
+          "markdownDescription": "是否手动配置构建 npm 的路径\n\n允许私有设置 否"
         },
         "packNpmRelationList": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/IPackNpmRelationList"
           },
-          "description": "仅 packNpmManually 为 true 时生效，详细参考构建 npm 文档 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html)\n\n允许私有设置 否",
-          "examples": "require('.').packNpmRelationListExample"
+          "description": "仅 packNpmManually 为 true 时生效，详细参考构建 npm 文档 点击查看文档\n\n允许私有设置 否",
+          "examples": "require('.').packNpmRelationListExample",
+          "markdownDescription": "仅 packNpmManually 为 true 时生效，详细参考构建 npm 文档 [点击查看文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html)\n\n允许私有设置 否"
         },
         "coverView": {
           "type": "boolean",
-          "description": "仅是否使用工具渲染 `CoverView`\n\n允许私有设置 是"
+          "description": "仅是否使用工具渲染 CoverView\n\n允许私有设置 是",
+          "markdownDescription": "仅是否使用工具渲染 `CoverView`\n\n允许私有设置 是"
         },
         "ignoreDevUnusedFiles": {
           "type": "boolean",
           "description": "预览、真机调试和本地模拟器等开发阶段是否过滤无依赖文件（默认为true）\n\n允许私有设置 是",
-          "default": true
+          "default": true,
+          "markdownDescription": "预览、真机调试和本地模拟器等开发阶段是否过滤无依赖文件（默认为true）\n\n允许私有设置 是"
         },
         "checkInvalidKey": {
           "type": "boolean",
-          "description": "是否展示 JSON 文件校验错误信息\n\n允许私有设置 是"
+          "description": "是否展示 JSON 文件校验错误信息\n\n允许私有设置 是",
+          "markdownDescription": "是否展示 JSON 文件校验错误信息\n\n允许私有设置 是"
         },
         "showShadowRootInWxmlPanel": {
           "type": "boolean",
-          "description": "是否开启调试器 WXML 面板展示 shadow-root\n\n允许私有设置 是"
+          "description": "是否开启调试器 WXML 面板展示 shadow-root\n\n允许私有设置 是",
+          "markdownDescription": "是否开启调试器 WXML 面板展示 shadow-root\n\n允许私有设置 是"
         },
         "useIsolateContext": {
           "type": "boolean",
-          "description": "是否开启小程序独立域调试特性\n\n允许私有设置 是\n\n注: (小程序独立域调试) 一种新的小程序内部代码的执行方式， 仅影响工具侧的调试过程。未来将取代传统的执行方式并成为默认选择。 仅在 2.11.1 及以上基础库有效。 关闭此特性可能有助于规避一些调试中遇到的未知报错。"
+          "description": "是否开启小程序独立域调试特性\n\n允许私有设置 是\n\n注: (小程序独立域调试) 一种新的小程序内部代码的执行方式， 仅影响工具侧的调试过程。未来将取代传统的执行方式并成为默认选择。 仅在 2.11.1 及以上基础库有效。 关闭此特性可能有助于规避一些调试中遇到的未知报错。",
+          "markdownDescription": "是否开启小程序独立域调试特性\n\n允许私有设置 是\n\n注: (小程序独立域调试) 一种新的小程序内部代码的执行方式， 仅影响工具侧的调试过程。未来将取代传统的执行方式并成为默认选择。 仅在 2.11.1 及以上基础库有效。 关闭此特性可能有助于规避一些调试中遇到的未知报错。"
         },
         "useMultiFrameRuntime": {
           "type": "boolean",
-          "description": "是否开启模拟器预先载入小程序的某些资源。此设定为 false 时会导致 `useIsolateContext` 失效\n\n允许私有设置 是\n\n注: (预先载入小程序的某些资源) 开启此内部特性后， 调试时小程序的重新载入可能会更快一些。 此设定不影响真机和实际运行效果。"
+          "description": "是否开启模拟器预先载入小程序的某些资源。此设定为 false 时会导致 useIsolateContext 失效\n\n允许私有设置 是\n\n注: (预先载入小程序的某些资源) 开启此内部特性后， 调试时小程序的重新载入可能会更快一些。 此设定不影响真机和实际运行效果。",
+          "markdownDescription": "是否开启模拟器预先载入小程序的某些资源。此设定为 false 时会导致 `useIsolateContext` 失效\n\n允许私有设置 是\n\n注: (预先载入小程序的某些资源) 开启此内部特性后， 调试时小程序的重新载入可能会更快一些。 此设定不影响真机和实际运行效果。"
         },
         "useApiHook": {
           "type": "boolean",
-          "description": "是否启用 `API Hook` 功能\n\n允许私有设置 是\n\n注: (API Hook 功能) 关闭此内部特性可能导致工具的某些调试功能（例如 mock）失效。 此设定不影响真机运行效果。"
+          "description": "是否启用 API Hook 功能\n\n允许私有设置 是\n\n注: (API Hook 功能) 关闭此内部特性可能导致工具的某些调试功能（例如 mock）失效。 此设定不影响真机运行效果。",
+          "markdownDescription": "是否启用 `API Hook` 功能\n\n允许私有设置 是\n\n注: (API Hook 功能) 关闭此内部特性可能导致工具的某些调试功能（例如 mock）失效。 此设定不影响真机运行效果。"
         },
         "useApiHostProcess": {
           "type": "boolean",
-          "description": "是否在额外的进程处理一些小程序 API\n\n允许私有设置 是\n\n注: (额外进程) 开启此内部特性后， 部分 API 的调用会被移到单独的进程以减轻工具主进程的负担。 此设定不影响真机运行效果。"
+          "description": "是否在额外的进程处理一些小程序 API\n\n允许私有设置 是\n\n注: (额外进程) 开启此内部特性后， 部分 API 的调用会被移到单独的进程以减轻工具主进程的负担。 此设定不影响真机运行效果。",
+          "markdownDescription": "是否在额外的进程处理一些小程序 API\n\n允许私有设置 是\n\n注: (额外进程) 开启此内部特性后， 部分 API 的调用会被移到单独的进程以减轻工具主进程的负担。 此设定不影响真机运行效果。"
         },
         "useLanDebug": {
           "type": "boolean",
-          "description": "仅在小游戏有效，是否开启局域网调试服务器\n\n允许私有设置 是"
+          "description": "仅在小游戏有效，是否开启局域网调试服务器\n\n允许私有设置 是",
+          "markdownDescription": "仅在小游戏有效，是否开启局域网调试服务器\n\n允许私有设置 是"
         },
         "enableEngineNative": {
           "type": "boolean",
-          "description": "是否在游戏引擎项目中开启支持引用 node 原生模块的底层加速特性\n\n允许私有设置 是"
+          "description": "是否在游戏引擎项目中开启支持引用 node 原生模块的底层加速特性\n\n允许私有设置 是",
+          "markdownDescription": "是否在游戏引擎项目中开启支持引用 node 原生模块的底层加速特性\n\n允许私有设置 是"
         },
         "showES6CompileOption": {
           "type": "boolean",
-          "description": "是否在本地设置中展示传统的 ES6 转 ES5 开关（对应 es6），增强编译开关 （对应 enhance）\n\n允许私有设置 是"
+          "description": "是否在本地设置中展示传统的 ES6 转 ES5 开关（对应 es6），增强编译开关 （对应 enhance）\n\n允许私有设置 是",
+          "markdownDescription": "是否在本地设置中展示传统的 ES6 转 ES5 开关（对应 es6），增强编译开关 （对应 enhance）\n\n允许私有设置 是"
         },
         "checkSiteMap": {
           "type": "boolean",
           "description": "是否打开SiteMap索引提示",
-          "default": true
+          "default": true,
+          "markdownDescription": "是否打开SiteMap索引提示"
         },
         "nodeModules": {
           "type": "boolean",
           "description": "是否使用npm包",
-          "default": false
+          "default": false,
+          "markdownDescription": "是否使用npm包"
         },
         "newFeature": {
           "type": "boolean",
-          "description": "新特性"
+          "description": "新特性",
+          "markdownDescription": "新特性"
         },
         "bundle": {
           "type": "boolean"
@@ -330,7 +392,8 @@
         },
         "useCompilerModule": {
           "type": "boolean",
-          "description": "使用新的编译模块"
+          "description": "使用新的编译模块",
+          "markdownDescription": "使用新的编译模块"
         },
         "userConfirmedBundleSwitch": {
           "type": "boolean"
@@ -345,7 +408,8 @@
       "properties": {
         "outputPath": {
           "type": "string",
-          "description": "Babel 辅助函数的输出目录，默认为 `@babel/runtime`"
+          "description": "Babel 辅助函数的输出目录，默认为 @babel/runtime",
+          "markdownDescription": "Babel 辅助函数的输出目录，默认为 `@babel/runtime`"
         },
         "ignore": {
           "type": "array",
@@ -353,14 +417,16 @@
             "type": "string"
           },
           "description": "配置需要跳过Babel编译(包括代码压缩)处理的文件或目录",
-          "examples": "require('.').ignoreFileExamples"
+          "examples": "require('.').ignoreFileExamples",
+          "markdownDescription": "配置需要跳过Babel编译(包括代码压缩)处理的文件或目录"
         },
         "disablePlugins": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "关闭的插件"
+          "description": "关闭的插件",
+          "markdownDescription": "关闭的插件"
         }
       }
     },
@@ -377,11 +443,13 @@
       "properties": {
         "packageJsonPath": {
           "type": "string",
-          "description": "`packageJsonPath` 表示 node_modules 源对应的 package.json"
+          "description": "packageJsonPath 表示 node_modules 源对应的 package.json",
+          "markdownDescription": "`packageJsonPath` 表示 node_modules 源对应的 package.json"
         },
         "miniprogramNpmDistDir": {
           "type": "string",
-          "description": "miniprogramNpmDistDir 表示 node_modules 的构建结果目标位置"
+          "description": "miniprogramNpmDistDir 表示 node_modules 的构建结果目标位置",
+          "markdownDescription": "miniprogramNpmDistDir 表示 node_modules 的构建结果目标位置"
         }
       },
       "required": [
@@ -406,7 +474,8 @@
             "$ref": "#/definitions/packItem"
           },
           "description": "用以配置打包时需要强制带上的文件（仅限后缀名白名单内）或者文件夹， 匹配的这些文件或文件夹将一定会出现在预览或上传的结果内。 （该字段的优先级高于 packOptions.ignore）",
-          "examples": "require('.').packItemExample"
+          "examples": "require('.').packItemExample",
+          "markdownDescription": "用以配置打包时需要强制带上的文件（仅限后缀名白名单内）或者文件夹， 匹配的这些文件或文件夹将一定会出现在预览或上传的结果内。 （该字段的优先级高于 packOptions.ignore）"
         },
         "ignore": {
           "type": "array",
@@ -414,7 +483,8 @@
             "$ref": "#/definitions/packItem"
           },
           "description": "用以配置打包时对符合指定规则的文件或文件夹进行忽略， 以跳过打包的过程，这些文件或文件夹将不会出现在预览或上传的结果内。",
-          "examples": "require('.').packItemExample"
+          "examples": "require('.').packItemExample",
+          "markdownDescription": "用以配置打包时对符合指定规则的文件或文件夹进行忽略， 以跳过打包的过程，这些文件或文件夹将不会出现在预览或上传的结果内。"
         }
       }
     },
@@ -423,7 +493,8 @@
       "properties": {
         "value": {
           "type": "string",
-          "description": "路径或取值\n\n注: `value` 字段的值若表示文件或文件夹路径，以小程序目录 (`miniprogramRoot`) 为根目录。"
+          "description": "路径或取值\n\n注: value 字段的值若表示文件或文件夹路径，以小程序目录 (miniprogramRoot) 为根目录。",
+          "markdownDescription": "路径或取值\n\n注: `value` 字段的值若表示文件或文件夹路径，以小程序目录 (`miniprogramRoot`) 为根目录。"
         },
         "type": {
           "anyOf": [
@@ -434,7 +505,8 @@
               "type": "string"
             }
           ],
-          "description": "类型\n\n`type` 可以取的值为 `folder`、`file`、`suffix`、`prefix`、`regexp`、`glob`， 分别对应 `文件夹`、`文件`、`后缀`、`前缀`、`正则表达式`、`Glob 规则`。 所有规则值都会自动忽略大小写。\n\n注: `regexp`、`glob` 仅 1.02.1809260 及以上版本工具支持。"
+          "description": "类型\n\ntype 可以取的值为 folder、file、suffix、prefix、regexp、glob， 分别对应 文件夹、文件、后缀、前缀、正则表达式、Glob 规则。 所有规则值都会自动忽略大小写。\n\n注: regexp、glob 仅 1.02.1809260 及以上版本工具支持。",
+          "markdownDescription": "类型\n\n`type` 可以取的值为 `folder`、`file`、`suffix`、`prefix`、`regexp`、`glob`， 分别对应 `文件夹`、`文件`、`后缀`、`前缀`、`正则表达式`、`Glob 规则`。 所有规则值都会自动忽略大小写。\n\n注: `regexp`、`glob` 仅 1.02.1809260 及以上版本工具支持。"
         }
       },
       "required": [
@@ -461,8 +533,9 @@
           "items": {
             "$ref": "#/definitions/packItem"
           },
-          "description": "用以配置调试时于调试器 Sources 面板隐藏源代码的文件。\n\n当某个 js 文件符合此规则时，调试器 Sources 面板中此文件源代码正文内容将被隐藏，显示为： ```js // xxx.js has been hided by project.config.json ```",
-          "examples": "require('.').packItemExample"
+          "description": "用以配置调试时于调试器 Sources 面板隐藏源代码的文件。\n\n当某个 js 文件符合此规则时，调试器 Sources 面板中此文件源代码正文内容将被隐藏，显示为： js // xxx.js has been hided by project.config.json ",
+          "examples": "require('.').packItemExample",
+          "markdownDescription": "用以配置调试时于调试器 Sources 面板隐藏源代码的文件。\n\n当某个 js 文件符合此规则时，调试器 Sources 面板中此文件源代码正文内容将被隐藏，显示为： ```js // xxx.js has been hided by project.config.json ```"
         }
       }
     },
@@ -474,8 +547,9 @@
           "items": {
             "type": "string"
           },
-          "description": "`ignore`用以配置工具时对符合指定规则的文件或文件夹进行忽略 (`忽略的文件将不展示在编辑器文件列表和对该文件进行监听`）， 以避免展示和监听项目中不必要的文件内容（这些文件或文件夹不需要去关心文件变化）\n\n支持 glob pattern 字符串数组\n\n- \\*  匹配0到多个字符\n- \\? 匹配一个字符\n- [...] 匹配一个字符列表，类似正则表达式的字符列表\n- !(pattern|pattern|pattern) 反向匹配括号内的模式\n- ?(pattern|pattern|pattern) 匹配0或1个括号内的模式\n- +(pattern|pattern|pattern) 匹配至少1个括号内的模式\n- *(pattern|pattern|pattern) 匹配0到多个括号内的模式\n- \\@(pattern|pat*|pat?erN) 精确匹配括号内的模式\n- ** 匹配0到多个子目录，递归匹配子目录",
-          "examples": "require('.').ignoreFileExamples"
+          "description": "ignore用以配置工具时对符合指定规则的文件或文件夹进行忽略 (忽略的文件将不展示在编辑器文件列表和对该文件进行监听）， 以避免展示和监听项目中不必要的文件内容（这些文件或文件夹不需要去关心文件变化）\n\n支持 glob pattern 字符串数组\n\n\\*  匹配0到多个字符\n\\? 匹配一个字符\n[...] 匹配一个字符列表，类似正则表达式的字符列表\n!(pattern|pattern|pattern) 反向匹配括号内的模式\n?(pattern|pattern|pattern) 匹配0或1个括号内的模式\n+(pattern|pattern|pattern) 匹配至少1个括号内的模式\n*(pattern|pattern|pattern) 匹配0到多个括号内的模式\n\\@(pattern|pat*|pat?erN) 精确匹配括号内的模式\n匹配0到多个子目录，递归匹配子目录",
+          "examples": "require('.').ignoreFileExamples",
+          "markdownDescription": "`ignore`用以配置工具时对符合指定规则的文件或文件夹进行忽略 (`忽略的文件将不展示在编辑器文件列表和对该文件进行监听`）， 以避免展示和监听项目中不必要的文件内容（这些文件或文件夹不需要去关心文件变化）\n\n支持 glob pattern 字符串数组\n\n- \\*  匹配0到多个字符\n- \\? 匹配一个字符\n- [...] 匹配一个字符列表，类似正则表达式的字符列表\n- !(pattern|pattern|pattern) 反向匹配括号内的模式\n- ?(pattern|pattern|pattern) 匹配0或1个括号内的模式\n- +(pattern|pattern|pattern) 匹配至少1个括号内的模式\n- *(pattern|pattern|pattern) 匹配0到多个括号内的模式\n- \\@(pattern|pat*|pat?erN) 精确匹配括号内的模式\n- ** 匹配0到多个子目录，递归匹配子目录"
         }
       }
     },
@@ -484,15 +558,18 @@
       "properties": {
         "beforeCompile": {
           "type": "string",
-          "description": "编译前预处理命令"
+          "description": "编译前预处理命令",
+          "markdownDescription": "编译前预处理命令"
         },
         "beforePreview": {
           "type": "string",
-          "description": "预览前预处理命令"
+          "description": "预览前预处理命令",
+          "markdownDescription": "预览前预处理命令"
         },
         "beforeUpload": {
           "type": "string",
-          "description": "上传前预处理命令"
+          "description": "上传前预处理命令",
+          "markdownDescription": "上传前预处理命令"
         }
       }
     },
@@ -501,7 +578,8 @@
       "properties": {
         "servePath": {
           "type": "string",
-          "description": "可以指向项目路径下的某个目录作为静态资源路径。 之后就可以通过工具提供的 `本地ip:端口port/` 来访问具体的静态资源。 通常可以用于上线发布前预览测试静态资源加载效果。"
+          "description": "可以指向项目路径下的某个目录作为静态资源路径。 之后就可以通过工具提供的 本地ip:端口port/ 来访问具体的静态资源。 通常可以用于上线发布前预览测试静态资源加载效果。",
+          "markdownDescription": "可以指向项目路径下的某个目录作为静态资源路径。 之后就可以通过工具提供的 `本地ip:端口port/` 来访问具体的静态资源。 通常可以用于上线发布前预览测试静态资源加载效果。"
         }
       }
     },
@@ -517,7 +595,8 @@
               "type": "string"
             }
           ],
-          "description": "tab 缩进\n\n- `\"auto\"` 自动检测缩进\n\n- `\"insertSpaces\"` 用空格代替 Tab\n\n- `\"tab\"` 使用 Tab"
+          "description": "tab 缩进\n\n\"auto\" 自动检测缩进\n\n\"insertSpaces\" 用空格代替 Tab\n\n\"tab\" 使用 Tab",
+          "markdownDescription": "tab 缩进\n\n- `\"auto\"` 自动检测缩进\n\n- `\"insertSpaces\"` 用空格代替 Tab\n\n- `\"tab\"` 使用 Tab"
         },
         "tabSize": {
           "anyOf": [
@@ -534,7 +613,8 @@
           ],
           "description": "tab 大小",
           "type": "integer",
-          "default": 4
+          "default": 4,
+          "markdownDescription": "tab 大小"
         }
       }
     },
@@ -557,19 +637,23 @@
         },
         "game": {
           "$ref": "#/definitions/ICustomCompileList%3CgameCustomCompile%3E",
-          "description": "小游戏模式"
+          "description": "小游戏模式",
+          "markdownDescription": "小游戏模式"
         },
         "gamePlugin": {
           "$ref": "#/definitions/ICustomCompileList",
-          "description": "小游戏插件模式"
+          "description": "小游戏插件模式",
+          "markdownDescription": "小游戏插件模式"
         },
         "plugin": {
           "$ref": "#/definitions/ICustomCompileList%3CpluginCustomCompile%3E",
-          "description": "插件模式"
+          "description": "插件模式",
+          "markdownDescription": "插件模式"
         },
         "miniprogram": {
           "$ref": "#/definitions/ICustomCompileList%3CminiprogramCustomCompile%3E",
-          "description": "小程序模式"
+          "description": "小程序模式",
+          "markdownDescription": "小程序模式"
         }
       }
     },
@@ -586,11 +670,13 @@
             "properties": {
               "name": {
                 "type": "string",
-                "description": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+                "description": "模式名称 点击查看文档",
+                "markdownDescription": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
               },
               "query": {
                 "type": "string",
-                "description": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+                "description": "启动参数 点击查看文档",
+                "markdownDescription": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
               },
               "scene": {
                 "type": [
@@ -598,7 +684,8 @@
                   "number",
                   "null"
                 ],
-                "description": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+                "description": "进入场景 点击查看文档",
+                "markdownDescription": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
               },
               "shareInfo": {
                 "type": "object"
@@ -616,7 +703,8 @@
               "scene"
             ]
           },
-          "description": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
+          "description": "局部编译\n\n",
+          "markdownDescription": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
         }
       }
     },
@@ -631,7 +719,8 @@
           "items": {
             "$ref": "#/definitions/gameCustomCompile"
           },
-          "description": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
+          "description": "局部编译\n\n",
+          "markdownDescription": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
         }
       }
     },
@@ -640,11 +729,13 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "模式名称 点击查看文档",
+          "markdownDescription": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "query": {
           "type": "string",
-          "description": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "启动参数 点击查看文档",
+          "markdownDescription": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "scene": {
           "type": [
@@ -652,7 +743,8 @@
             "number",
             "null"
           ],
-          "description": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "进入场景 点击查看文档",
+          "markdownDescription": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "shareInfo": {
           "type": "object"
@@ -665,7 +757,8 @@
         },
         "pathName": {
           "type": "string",
-          "description": "启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "启动页面路径 点击查看文档",
+          "markdownDescription": "启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "chatroomUsernameInfo": {
           "type": "object"
@@ -689,7 +782,8 @@
           "items": {
             "$ref": "#/definitions/pluginCustomCompile"
           },
-          "description": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
+          "description": "局部编译\n\n",
+          "markdownDescription": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
         }
       }
     },
@@ -698,11 +792,13 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "模式名称 点击查看文档",
+          "markdownDescription": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "query": {
           "type": "string",
-          "description": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "启动参数 点击查看文档",
+          "markdownDescription": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "scene": {
           "type": [
@@ -710,7 +806,8 @@
             "number",
             "null"
           ],
-          "description": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "进入场景 点击查看文档",
+          "markdownDescription": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "shareInfo": {
           "type": "object"
@@ -723,7 +820,8 @@
         },
         "pathName": {
           "type": "string",
-          "description": "启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "启动页面路径 点击查看文档",
+          "markdownDescription": "启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "launchMode": {
           "anyOf": [
@@ -734,7 +832,8 @@
               "type": "string"
             }
           ],
-          "description": "小程序模式（启动模式）"
+          "description": "小程序模式（启动模式）",
+          "markdownDescription": "小程序模式（启动模式）"
         }
       },
       "required": [
@@ -765,7 +864,8 @@
           "items": {
             "$ref": "#/definitions/miniprogramCustomCompile"
           },
-          "description": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
+          "description": "局部编译\n\n",
+          "markdownDescription": "局部编译\n\n<https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html>"
         }
       }
     },
@@ -774,11 +874,13 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "模式名称 点击查看文档",
+          "markdownDescription": "模式名称 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "query": {
           "type": "string",
-          "description": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "启动参数 点击查看文档",
+          "markdownDescription": "启动参数 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "scene": {
           "type": [
@@ -786,7 +888,8 @@
             "number",
             "null"
           ],
-          "description": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "进入场景 点击查看文档",
+          "markdownDescription": "进入场景 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "shareInfo": {
           "type": "object"
@@ -799,7 +902,8 @@
         },
         "pathName": {
           "type": "string",
-          "description": "启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
+          "description": "启动页面路径 点击查看文档",
+          "markdownDescription": "启动页面路径 [点击查看文档](https://developers.weixin.qq.com/minigame/dev/devtools/partial-compile.html)"
         },
         "launchMode": {
           "anyOf": [
@@ -813,7 +917,8 @@
         },
         "partialCompile": {
           "$ref": "#/definitions/IPartialCompile",
-          "description": "局部编译"
+          "description": "局部编译",
+          "markdownDescription": "局部编译"
         },
         "chatroomUsernameInfo": {
           "type": "object"
@@ -831,14 +936,16 @@
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "是否开启局部编译"
+          "description": "是否开启局部编译",
+          "markdownDescription": "是否开启局部编译"
         },
         "pages": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "局部编译的页面"
+          "description": "局部编译的页面",
+          "markdownDescription": "局部编译的页面"
         }
       },
       "required": [
@@ -851,7 +958,8 @@
       "properties": {
         "global": {
           "$ref": "#/definitions/ISkeletonConfigs",
-          "description": "全局配置"
+          "description": "全局配置",
+          "markdownDescription": "全局配置"
         },
         "pages": {
           "type": "object",
@@ -876,8 +984,9 @@
               "type": "string"
             }
           ],
-          "description": "骨架屏显示时的动画\n\n- `\"spin\"`\n\n- `\"chiaroscuro\"`\n\n- `\"shine\"`",
-          "default": "spin"
+          "description": "骨架屏显示时的动画\n\n\"spin\"\n\n\"chiaroscuro\"\n\n\"shine\"",
+          "default": "spin",
+          "markdownDescription": "骨架屏显示时的动画\n\n- `\"spin\"`\n\n- `\"chiaroscuro\"`\n\n- `\"shine\"`"
         },
         "outline": {
           "type": "object",
@@ -885,38 +994,44 @@
             "remain": {
               "type": "boolean",
               "description": "保持边框颜色，默认为 true",
-              "default": true
+              "default": true,
+              "markdownDescription": "保持边框颜色，默认为 true"
             },
             "replace": {
               "type": "string",
-              "description": "`remain` 为 `false` 时，用 `replace` 字段替代 style.border"
+              "description": "remain 为 false 时，用 replace 字段替代 style.border",
+              "markdownDescription": "`remain` 为 `false` 时，用 `replace` 字段替代 style.border"
             }
           },
           "required": [
             "remain",
             "replace"
           ],
-          "description": "骨架页面中的边框"
+          "description": "骨架页面中的边框",
+          "markdownDescription": "骨架页面中的边框"
         },
         "text": {
           "type": "object",
           "properties": {
             "color": {
               "type": "string",
-              "description": "用于决定骨架页面中文字块的的颜色，颜色值支持 16 进制"
+              "description": "用于决定骨架页面中文字块的的颜色，颜色值支持 16 进制",
+              "markdownDescription": "用于决定骨架页面中文字块的的颜色，颜色值支持 16 进制"
             }
           },
           "required": [
             "color"
           ],
-          "description": "骨架页面中的文字块"
+          "description": "骨架页面中的文字块",
+          "markdownDescription": "骨架页面中的文字块"
         },
         "image": {
           "type": "object",
           "properties": {
             "color": {
               "type": "string",
-              "description": "用于确定骨架页面中图片块的颜色，颜色值支持 16 进制，"
+              "description": "用于确定骨架页面中图片块的颜色，颜色值支持 16 进制，",
+              "markdownDescription": "用于确定骨架页面中图片块的颜色，颜色值支持 16 进制，"
             },
             "shape": {
               "anyOf": [
@@ -927,14 +1042,16 @@
                   "type": "string"
                 }
               ],
-              "description": "用于确定骨架页面中图片块的形状，形状支持两个枚举值\n\n- `\"circle\"` （圆形）\n\n- `\"rect\"` （矩形）。"
+              "description": "用于确定骨架页面中图片块的形状，形状支持两个枚举值\n\n\"circle\" （圆形）\n\n\"rect\" （矩形）。",
+              "markdownDescription": "用于确定骨架页面中图片块的形状，形状支持两个枚举值\n\n- `\"circle\"` （圆形）\n\n- `\"rect\"` （矩形）。"
             },
             "shapeOpposite": {
               "type": "array",
               "items": {
                 "type": "string"
               },
-              "description": "shapeOpposite 字段接受一个数组，数组中每个元素是一个 DOM 选择器， 用于选择 DOM 元素，被选择 DOM 的形状将和配置的 shape 形状相反， 例如，配置的是 `rect` 那么，shapeOpposite 中的图片块将在骨架页面中显示成 circle 形状（圆形）"
+              "description": "shapeOpposite 字段接受一个数组，数组中每个元素是一个 DOM 选择器， 用于选择 DOM 元素，被选择 DOM 的形状将和配置的 shape 形状相反， 例如，配置的是 rect 那么，shapeOpposite 中的图片块将在骨架页面中显示成 circle 形状（圆形）",
+              "markdownDescription": "shapeOpposite 字段接受一个数组，数组中每个元素是一个 DOM 选择器， 用于选择 DOM 元素，被选择 DOM 的形状将和配置的 shape 形状相反， 例如，配置的是 `rect` 那么，shapeOpposite 中的图片块将在骨架页面中显示成 circle 形状（圆形）"
             }
           },
           "required": [
@@ -942,35 +1059,40 @@
             "shape",
             "shapeOpposite"
           ],
-          "description": "骨架页面中的图片块"
+          "description": "骨架页面中的图片块",
+          "markdownDescription": "骨架页面中的图片块"
         },
         "button": {
           "type": "object",
           "properties": {
             "color": {
               "type": "string",
-              "description": "用于确定骨架页面中按钮块的颜色，颜色值支持 16 进制，"
+              "description": "用于确定骨架页面中按钮块的颜色，颜色值支持 16 进制，",
+              "markdownDescription": "用于确定骨架页面中按钮块的颜色，颜色值支持 16 进制，"
             },
             "excludes": {
               "type": "array",
               "items": {
                 "type": "string"
               },
-              "description": "`excludes` 接受一个数组，数组中元素是 DOM 选择器， 用来选择元素，该数组中的元素将不被视为按钮块。"
+              "description": "excludes 接受一个数组，数组中元素是 DOM 选择器， 用来选择元素，该数组中的元素将不被视为按钮块。",
+              "markdownDescription": "`excludes` 接受一个数组，数组中元素是 DOM 选择器， 用来选择元素，该数组中的元素将不被视为按钮块。"
             }
           },
           "required": [
             "color",
             "excludes"
           ],
-          "description": "骨架页面中的按钮块"
+          "description": "骨架页面中的按钮块",
+          "markdownDescription": "骨架页面中的按钮块"
         },
         "pseudo": {
           "type": "object",
           "properties": {
             "color": {
               "type": "string",
-              "description": "用于确定骨架页面中伪元素块的颜色，颜色值支持 16 进制，"
+              "description": "用于确定骨架页面中伪元素块的颜色，颜色值支持 16 进制，",
+              "markdownDescription": "用于确定骨架页面中伪元素块的颜色，颜色值支持 16 进制，"
             },
             "shape": {
               "anyOf": [
@@ -981,59 +1103,68 @@
                   "type": "string"
                 }
               ],
-              "description": "用于确定骨架页面中伪元素块的形状，形状支持两个枚举值\n\n- `\"circle\"` （圆形）\n\n- `\"rect\"` （矩形）。"
+              "description": "用于确定骨架页面中伪元素块的形状，形状支持两个枚举值\n\n\"circle\" （圆形）\n\n\"rect\" （矩形）。",
+              "markdownDescription": "用于确定骨架页面中伪元素块的形状，形状支持两个枚举值\n\n- `\"circle\"` （圆形）\n\n- `\"rect\"` （矩形）。"
             }
           },
           "required": [
             "color",
             "shape"
           ],
-          "description": "骨架页面中伪元素块"
+          "description": "骨架页面中伪元素块",
+          "markdownDescription": "骨架页面中伪元素块"
         },
         "excludes": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "如果你有不需要进行骨架处理的元素，那么将该元素的 CSS 选择器写入该数组。"
+          "description": "如果你有不需要进行骨架处理的元素，那么将该元素的 CSS 选择器写入该数组。",
+          "markdownDescription": "如果你有不需要进行骨架处理的元素，那么将该元素的 CSS 选择器写入该数组。"
         },
         "remove": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "不需要生成页面骨架，且需要从 DOM 中移除的元素，配置值为移除元素的 CSS 选择器。"
+          "description": "不需要生成页面骨架，且需要从 DOM 中移除的元素，配置值为移除元素的 CSS 选择器。",
+          "markdownDescription": "不需要生成页面骨架，且需要从 DOM 中移除的元素，配置值为移除元素的 CSS 选择器。"
         },
         "hide": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "不需要移除，但是通过设置其透明度为 0，来隐藏该元素，配置值为隐藏元素的 CSS 选择器。"
+          "description": "不需要移除，但是通过设置其透明度为 0，来隐藏该元素，配置值为隐藏元素的 CSS 选择器。",
+          "markdownDescription": "不需要移除，但是通过设置其透明度为 0，来隐藏该元素，配置值为隐藏元素的 CSS 选择器。"
         },
         "empty": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "该数组中元素是 CSS 选择器，被选择的元素将被清空子元素。"
+          "description": "该数组中元素是 CSS 选择器，被选择的元素将被清空子元素。",
+          "markdownDescription": "该数组中元素是 CSS 选择器，被选择的元素将被清空子元素。"
         },
         "grayBlock": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "该数组中元素是 CSS 选择器，被选择的元素将被被插件处理成一个色块， 色块的颜色和按钮块颜色一致。内部元素将不再做特殊处理，文字将隐藏。"
+          "description": "该数组中元素是 CSS 选择器，被选择的元素将被被插件处理成一个色块， 色块的颜色和按钮块颜色一致。内部元素将不再做特殊处理，文字将隐藏。",
+          "markdownDescription": "该数组中元素是 CSS 选择器，被选择的元素将被被插件处理成一个色块， 色块的颜色和按钮块颜色一致。内部元素将不再做特殊处理，文字将隐藏。"
         },
         "showNative": {
           "type": "boolean",
-          "description": "显示原生组件，为 `false` 时原生组件被处理为 view。",
-          "default": false
+          "description": "显示原生组件，为 false 时原生组件被处理为 view。",
+          "default": false,
+          "markdownDescription": "显示原生组件，为 `false` 时原生组件被处理为 view。"
         },
         "backgroundColor": {
           "type": "string",
           "description": "骨架屏背景色",
-          "default": "transparent"
+          "default": "transparent",
+          "markdownDescription": "骨架屏背景色"
         },
         "mode": {
           "anyOf": [
@@ -1044,13 +1175,15 @@
               "type": "string"
             }
           ],
-          "description": "默认为使用绝对定位占满全屏。当对自定义组件使用， 作为局部加载的样式时，可设为 `auto` ，高度随内容撑开",
-          "default": "fullscreen"
+          "description": "默认为使用绝对定位占满全屏。当对自定义组件使用， 作为局部加载的样式时，可设为 auto ，高度随内容撑开",
+          "default": "fullscreen",
+          "markdownDescription": "默认为使用绝对定位占满全屏。当对自定义组件使用， 作为局部加载的样式时，可设为 `auto` ，高度随内容撑开"
         },
         "templateName": {
           "type": "string",
           "description": "骨架屏模板的 name 值",
-          "default": "skeleton"
+          "default": "skeleton",
+          "markdownDescription": "骨架屏模板的 name 值"
         },
         "cssUnit": {
           "anyOf": [
@@ -1061,13 +1194,15 @@
               "type": "string"
             }
           ],
-          "description": "支持的枚举值： `\"rpx\"`, `\"rem\"`, `\"vw\"`, `\"vh\"`, `\"vmin\"`, `\"vmax\"`",
-          "default": "rpx"
+          "description": "支持的枚举值： \"rpx\", \"rem\", \"vw\", \"vh\", \"vmin\", \"vmax\"",
+          "default": "rpx",
+          "markdownDescription": "支持的枚举值： `\"rpx\"`, `\"rem\"`, `\"vw\"`, `\"vh\"`, `\"vmin\"`, `\"vmax\"`"
         },
         "decimal": {
           "type": "number",
           "description": "生成骨架页面中 css 值保留的小数位数，默认值是 4",
-          "default": 4
+          "default": 4,
+          "markdownDescription": "生成骨架页面中 css 值保留的小数位数，默认值是 4"
         }
       }
     },

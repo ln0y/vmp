@@ -15,6 +15,8 @@
  *
  * <https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/sitemap.schema.json>
  */
+export type Schema = Sitemap
+
 export interface Sitemap {
 
   /**
@@ -112,5 +114,3 @@ export enum EMatching {
    */
   partial = 'partial',
 }
-
-export type Schema = Sitemap
